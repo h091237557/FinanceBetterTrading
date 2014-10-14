@@ -1,14 +1,16 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace FinanceBetterTrading.Test
+namespace FinanceBetterTrading.UITest.WebRequestTests
 {
     [TestClass]
-    public class UnitTest1
+    public class RequstServer
     {
         [TestMethod]
-        public void TestMethod1()
+        public void TestGetData()
         {
+
+
         }
     }
 }

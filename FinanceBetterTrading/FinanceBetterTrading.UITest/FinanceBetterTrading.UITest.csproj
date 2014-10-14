@@ -53,6 +53,13 @@
   <ItemGroup>
     <Compile Include="CodedUITest1.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="WebRequestTests\RequstServer.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\FinanceBetterTrading.WebRequest\FinanceBetterTrading.WebRequest.csproj">
+      <Project>{8ae8f7ab-4703-4be4-8569-a89eaef6189a}</Project>
+      <Name>FinanceBetterTrading.WebRequest</Name>
+    </ProjectReference>
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
