@@ -13,6 +13,7 @@ namespace FinanceBetterTrading.Controllers
 
         public ActionResult Index()
         {
+            var test = "test";
             return View();
         }
 
