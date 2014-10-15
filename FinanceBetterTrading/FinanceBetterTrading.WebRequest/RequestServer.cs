@@ -1,55 +1,75 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Security.Policy;
 using System.Text;
 using System.Threading.Tasks;
+using FinanceBetterTrading.Domain;
+using FinanceBetterTrading.Domain.Extension;
 using HtmlAgilityPack;
 
 namespace FinanceBetterTrading.WebRequest
 {
     public class RequestServer
     {
-
-        public HtmlDocument GetData(string url)
+        public HtmlDocument GetData(string url, string domtrace)
         {
-            // 下載 Yahoo 奇摩股市資料 (範例為 2317 鴻海) 
             WebClient client = new WebClient();
             MemoryStream ms = new MemoryStream(client.DownloadData(url));
 
             // 使用預設編碼讀入 HTML 
             HtmlDocument doc = new HtmlDocument();
             doc.Load(ms, Encoding.Default);
-
             // 裝載第一層查詢結果 
             HtmlDocument docStockContext = new HtmlDocument();
-            var test =
-                doc.DocumentNode.SelectSingleNode("/html[1]/body[1]/table[1]/tr[3]/td[1]/table[3]").InnerHtml;
-
-            // docStockContext.LoadHtml();/tr[3]/td[1]/table[3]/tbody[1]
+            docStockContext.LoadHtml(doc.DocumentNode.SelectSingleNode(domtrace).InnerHtml);
             ms.Close();
             return docStockContext;
-
-            // 取得個股標頭 
-        //    HtmlNodeCollection nodeHeaders =
-        // docStockContext.DocumentNode.SelectNodes("./tr[1]/th");
-        //    // 取得個股數值 
-        //    string[] values = docStockContext.DocumentNode.SelectSingleNode(
-        //"./tr[2]").InnerText.Trim().Split('\n');
-        //    int i = 0;
-
-            // 輸出資料 
-        //    foreach (HtmlNode nodeHeader in nodeHeaders)
-        //    {
-        //        Console.WriteLine("Header: {0}, Value: {1}",
-        //nodeHeader.InnerText, values[i].Trim());
-        //        i++;
-        //    }
-
-            
         }
 
+        /// <summary>
+        /// 取得該月股價資訊
+        /// 因為證交所是以月為鋹
+        /// </summary>
+        /// <returns></returns>
+        public List<StockPriceInformation> GetStockPriceInformationFromTwse(HtmlDocument htmlDocument)
+        {
+            List<StockPriceInformation> result = new List<StockPriceInformation>();
+            HtmlNodeCollection nodeHeader = htmlDocument.DocumentNode.SelectNodes("/tr[1]/td[1]/div[1]");
+            var pricehtml = htmlDocument.DocumentNode.ChildNodes;
+            int count = 0;
+            foreach (var item in pricehtml)
+            {
+                if (item.Name == "tr")
+                {
+                    if (count == 0)
+                    {
+                        
+                    }
+                    
+                    if (count > 2)
+                    {
+                        StockPriceInformation stockPrice = new StockPriceInformation();
+                        stockPrice.Date = item.SelectNodes("./td[1]")[0].InnerText;
+                        stockPrice.TradeShare = item.SelectNodes("./td[2]")[0].InnerText.ParseThousandthString();
+                        stockPrice.TradeAmount = item.SelectNodes("./td[3]")[0].InnerText.ParseThousandthString();
+                        stockPrice.OpenPrice = float.Parse(item.SelectNodes("./td[4]")[0].InnerText);
+                        stockPrice.HeightPrice = float.Parse(item.SelectNodes("./td[5]")[0].InnerText);
+                        stockPrice.LowerPrice = float.Parse(item.SelectNodes("./td[6]")[0].InnerText);
+                        stockPrice.ClosePrice = float.Parse(item.SelectNodes("./td[7]")[0].InnerText);
+                        stockPrice.PriceSpread = float.Parse(item.SelectNodes("./td[8]")[0].InnerText);
+                        stockPrice.Volumn = item.SelectNodes("./td[9]")[0].InnerText.ParseThousandthString();
+                        result.Add(stockPrice);
+                    }
+                }
+            }
+            return result;
+        }
 
+  
     }
 }
