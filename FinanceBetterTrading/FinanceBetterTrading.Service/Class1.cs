@@ -8,5 +8,9 @@ namespace FinanceBetterTrading.Service
 {
     public class Class1
     {
+        public void TWSEDataInsertDB()
+        {
+
+        }
     }
 }

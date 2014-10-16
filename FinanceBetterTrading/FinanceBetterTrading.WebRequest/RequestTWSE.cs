@@ -55,5 +55,10 @@ namespace FinanceBetterTrading.WebRequest
             string[] result = Regex.Split(nodeHeader[0].InnerText, "&nbsp;", RegexOptions.IgnoreCase);
             return result;
         }
+
+        public void 
+        {GetAllData()
+
+        }
     }
 }
