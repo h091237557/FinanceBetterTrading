@@ -48,7 +48,8 @@ namespace FinanceBetterTrading.WebRequest
                 {
                     if (count == 0)
                     {
-                        
+
+                        string test = "@";
                     }
                     
                     if (count > 2)
