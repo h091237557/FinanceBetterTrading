@@ -51,7 +51,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="MySql\Class1.cs" />
+    <Compile Include="MySql\StockPriceInformationDAL.cs" />
     <Compile Include="MySqlDal.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -59,6 +59,12 @@
     <Content Include="UseDll\MySql.Data.dll" />
     <Content Include="UseDll\MySql.Data.Entity.dll" />
     <Content Include="UseDll\MySql.Web.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\FinanceBetterTrading.Domain\FinanceBetterTrading.Domain.csproj">
+      <Project>{68d70099-bdff-43ef-bd86-cdc6c2a56d26}</Project>
+      <Name>FinanceBetterTrading.Domain</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

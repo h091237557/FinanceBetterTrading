@@ -56,9 +56,6 @@ namespace FinanceBetterTrading.WebRequest
             return result;
         }
 
-        public void 
-        {GetAllData()
-
-        }
+       
     }
 }
