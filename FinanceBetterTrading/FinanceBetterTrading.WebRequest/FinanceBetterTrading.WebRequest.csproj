@@ -50,6 +50,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="UseDll\" />
+  </ItemGroup>
+  <ItemGroup>
     <ProjectReference Include="..\FinanceBetterTrading.Domain\FinanceBetterTrading.Domain.csproj">
       <Project>{68d70099-bdff-43ef-bd86-cdc6c2a56d26}</Project>
       <Name>FinanceBetterTrading.Domain</Name>

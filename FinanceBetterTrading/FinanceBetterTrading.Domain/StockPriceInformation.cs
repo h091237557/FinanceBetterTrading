@@ -8,6 +8,7 @@ namespace FinanceBetterTrading.Domain
 {
     public class StockPriceInformation
     {
+        public string Id { get; set; }
         public string Name { get; set; }
         public string Code { get; set; }
         public string Date { get; set; }

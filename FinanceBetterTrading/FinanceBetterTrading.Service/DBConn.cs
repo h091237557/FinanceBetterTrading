@@ -6,7 +6,12 @@ using System.Threading.Tasks;
 
 namespace FinanceBetterTrading.Service
 {
-    public class Class1
+    public class DBConn
     {
+        public static string Conn;
+        public static void SetConnString(string conn)
+        {
+            Conn = conn;
+        }
     }
 }
