@@ -47,6 +47,39 @@ namespace FinanceBetterTrading.Test.DALTests
                     stockPriceInformationDal.Connection.Close();
             }
         }
+        [TestMethod]
+        public void TestDelete()
+        {
+            StockPriceInformationDal stockPriceInformationDal = new StockPriceInformationDal();
+            try
+            {
+                using (new TransactionScope())
+                {
+                    stockPriceInformationDal.Open(DBConn.Conn);
+                    var stock = CreateStockObject();
+                    stockPriceInformationDal.Insert(stock);
+
+                    var actual = stockPriceInformationDal.Select(stock.Id).Name;
+                    var expect = stock.Name;
+                    Assert.AreEqual(expect, actual);
+
+                    stockPriceInformationDal.Delete(stock);
+
+                    var actualcancel = stockPriceInformationDal.Select(stock.Id).Name;
+                    Assert.IsNull(actualcancel);
+
+                    
+
+
+
+                }
+            }
+            finally
+            {
+                if (stockPriceInformationDal.Connection != null)
+                    stockPriceInformationDal.Connection.Close();
+            }
+        }
 
         private StockPriceInformation CreateStockObject()
         {
