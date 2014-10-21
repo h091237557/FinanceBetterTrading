@@ -16,6 +16,7 @@ namespace FinanceBetterTrading.DAL
         /// <param name="stock"></param>
         public void Insert(StockPriceInformation stock)
         {
+            string xxx;
             MySqlCommand command = connection.CreateCommand();
             command.CommandText = "INSERT INTO StockPriceInformation ";
             command.CommandText +=
