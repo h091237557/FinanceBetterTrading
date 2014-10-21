@@ -20,7 +20,7 @@ namespace FinanceBetterTrading.WebRequest
         /// <returns></returns>
         public List<StockPriceInformation> GetStockPriceInformation(HtmlDocument htmlDocument)
         {
-            string test = "";
+            string test = "tset";
             List<StockPriceInformation> result = new List<StockPriceInformation>();
             string[] stockInformation = GetNameAndCode(htmlDocument);
             var pricehtml = htmlDocument.DocumentNode.ChildNodes;
