@@ -2,7 +2,7 @@
 using Owin;
 
 [assembly: OwinStartupAttribute(typeof(FinanceBetterTrading.Web.Startup))]
-namespace FinanceBetterTrading.Web
+namespace FinanceBetterTrading
 {
     public partial class Startup
     {

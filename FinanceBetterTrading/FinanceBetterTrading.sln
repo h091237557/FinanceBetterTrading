@@ -17,8 +17,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FinanceBetterTrading.Domain
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FinanceBetterTrading.WebRequest", "FinanceBetterTrading.WebRequest\FinanceBetterTrading.WebRequest.csproj", "{8AE8F7AB-4703-4BE4-8569-A89EAEF6189A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FinanceBetterTrading.Web", "FinanceBetterTrading.Web\FinanceBetterTrading.Web.csproj", "{F6589427-ED08-45F4-A548-B25AA7A34D86}"
-EndProject
 Global
 	GlobalSection(SubversionScc) = preSolution
 		Svn-Managed = True
@@ -57,10 +55,6 @@ Global
 		{8AE8F7AB-4703-4BE4-8569-A89EAEF6189A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8AE8F7AB-4703-4BE4-8569-A89EAEF6189A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8AE8F7AB-4703-4BE4-8569-A89EAEF6189A}.Release|Any CPU.Build.0 = Release|Any CPU
-		{F6589427-ED08-45F4-A548-B25AA7A34D86}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F6589427-ED08-45F4-A548-B25AA7A34D86}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F6589427-ED08-45F4-A548-B25AA7A34D86}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F6589427-ED08-45F4-A548-B25AA7A34D86}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
