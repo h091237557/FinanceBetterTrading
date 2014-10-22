@@ -66,12 +66,7 @@ namespace FinanceBetterTrading.Test.DALTests
                     stockPriceInformationDal.Delete(stock);
 
                     var actualcancel = stockPriceInformationDal.Select(stock.Id).Name;
-                    Assert.IsNull(actualcancel);
-
-                    
-
-
-
+                    Assert.IsNull(actualcancel);                 
                 }
             }
             finally
