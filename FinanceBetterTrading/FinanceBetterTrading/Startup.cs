@@ -1,7 +1,7 @@
 ﻿using Microsoft.Owin;
 using Owin;
 
-[assembly: OwinStartupAttribute(typeof(FinanceBetterTrading.Web.Startup))]
+[assembly: OwinStartupAttribute(typeof(FinanceBetterTrading.Startup))]
 namespace FinanceBetterTrading
 {
     public partial class Startup
