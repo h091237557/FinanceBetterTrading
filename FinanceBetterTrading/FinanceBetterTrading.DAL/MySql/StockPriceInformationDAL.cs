@@ -16,7 +16,6 @@ namespace FinanceBetterTrading.DAL
         /// <param name="stock"></param>
         public void Insert(StockPriceInformation stock)
         {
-            
             MySqlCommand command = connection.CreateCommand();
             command.CommandText = "INSERT INTO StockPriceInformation ";
             command.CommandText +=
@@ -44,23 +43,9 @@ namespace FinanceBetterTrading.DAL
         {
 
             MySqlCommand command = connection.CreateCommand();
-            //command.CommandText = "INSERT INTO StockPriceInformation ";
-            //command.CommandText +=
-            //    "(Name,Code,Date,OpenPrice,ClosePrice,HeightPrice,LowerPrice,Volumn,TradeAmount,TradeShare,PriceSpread) ";
-            //command.CommandText += "VALUES (?Name, ?Code, ?Date, ?OpenPrice, ?ClosePrice, ?HeightPrice, ?LowerPrice, ?Volumn, ?TradeAmount, ?TradeShare,?PriceSpread)";
-            //command.Parameters.AddWithValue("?Name", stock.Name);
-            //command.Parameters.AddWithValue("?Code", stock.Code);
-            //command.Parameters.AddWithValue("?Date", stock.Date);
-            //command.Parameters.AddWithValue("?OpenPrice", stock.OpenPrice);
-            //command.Parameters.AddWithValue("?ClosePrice", stock.ClosePrice);
-            //command.Parameters.AddWithValue("?HeightPrice", stock.HeightPrice);
-            //command.Parameters.AddWithValue("?LowerPrice", stock.LowerPrice);
-            //command.Parameters.AddWithValue("?Volumn", stock.Volumn);
-            //command.Parameters.AddWithValue("?TradeAmount", stock.TradeAmount);
-            //command.Parameters.AddWithValue("?TradeShare", stock.TradeShare);
-            //command.Parameters.AddWithValue("?PriceSpread", stock.PriceSpread);
-            command.CommandText = "DELETE FROM  StockPriceInformation WHERE ";
-            command.CommandText += "Code = ?Code AND OpenPrice = ?OpenPrice";
+
+            command.CommandText = "DELETE FROM  StockPriceInformation ";
+            command.CommandText += " WHERE Code = ?Code AND OpenPrice = ?OpenPrice";
             command.Parameters.AddWithValue("?Code", stock.Code);
             command.Parameters.AddWithValue("?OpenPrice", stock.OpenPrice);
             command.ExecuteNonQuery();

@@ -29,7 +29,7 @@ namespace FinanceBetterTrading.Test.DALTests
             StockPriceInformationDal stockPriceInformationDal = new StockPriceInformationDal();
             try
             {
-                using (new TransactionScope())
+                using (var scrop = new TransactionScope())
                 {
                     stockPriceInformationDal.Open(DBConn.Conn);
                     var stock = CreateStockObject();
@@ -37,8 +37,9 @@ namespace FinanceBetterTrading.Test.DALTests
 
                     var actual = stockPriceInformationDal.Select(stock.Id).Name;
                     var expect = stock.Name;
-
+                   
                     Assert.AreEqual(expect, actual);
+                    //scrop.Complete();
                 }                
             }
             finally

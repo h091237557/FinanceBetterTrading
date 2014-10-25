@@ -32,6 +32,7 @@ namespace FinanceBetterTrading.WebRequest
                     count++;
                     if (count > 2)
                     {
+ 
                         StockPriceInformation stockPrice = new StockPriceInformation();
                         stockPrice.Name = stockInformation[2].Trim();
                         stockPrice.Code = stockInformation[1];
@@ -51,6 +52,11 @@ namespace FinanceBetterTrading.WebRequest
             return result;
         }
 
+        /// <summary>
+        /// 取得股票名字與代碼
+        /// </summary>
+        /// <param name="htmlDocument"></param>
+        /// <returns></returns>
         private string[] GetNameAndCode(HtmlDocument htmlDocument)
         {
             HtmlNodeCollection nodeHeader = htmlDocument.DocumentNode.SelectNodes("/tr[1]/td[1]/div[1]");

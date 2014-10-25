@@ -25,18 +25,23 @@ namespace FinanceBetterTrading.WebRequest
         /// <returns></returns>
         public HtmlDocument GetHtmlData(string url, string xPath)
         {
-            WebClient client = new WebClient();
-            MemoryStream ms = new MemoryStream(client.DownloadData(url));
-
-            // 使用預設編碼讀入 HTML 
-            HtmlDocument doc = new HtmlDocument();
-            doc.Load(ms, Encoding.Default);
-
-            // 裝載第一層查詢結果 
-            HtmlDocument docStockContext = new HtmlDocument();
-            docStockContext.LoadHtml(doc.DocumentNode.SelectSingleNode(xPath).InnerHtml);
-            ms.Close();
-            return docStockContext;
+            // 裝載第一層查詢結果           
+            try
+            {
+                HtmlDocument docStockContext = new HtmlDocument();
+                WebClient client = new WebClient();
+                MemoryStream ms = new MemoryStream(client.DownloadData(url));
+                // 使用預設編碼讀入 HTML 
+                HtmlDocument doc = new HtmlDocument();
+                doc.Load(ms, Encoding.Default);          
+                docStockContext.LoadHtml(doc.DocumentNode.SelectSingleNode(xPath).InnerHtml);
+                ms.Close();
+                return docStockContext;
+            }
+            catch (Exception)
+            {
+                return null;
+            }           
         }       
     }
 }
