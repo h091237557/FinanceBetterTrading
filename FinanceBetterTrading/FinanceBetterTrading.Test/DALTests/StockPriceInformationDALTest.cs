@@ -1,5 +1,5 @@
 ﻿using System;
-using FinanceBetterTrading.App_Start;
+using FinanceBetterTrading.Web.App_Start;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using FinanceBetterTrading.DAL;
 using FinanceBetterTrading.Domain;

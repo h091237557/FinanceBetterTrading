@@ -7,7 +7,7 @@
     <ProductVersion>
     </ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{F6589427-ED08-45F4-A548-B25AA7A34D86}</ProjectGuid>
+    <ProjectGuid>{9F8F4908-5466-4520-890E-08E35B99904A}</ProjectGuid>
     <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
@@ -155,6 +155,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
+    <Compile Include="App_Start\DBConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
@@ -225,6 +226,20 @@
     <Content Include="packages.config" />
     <None Include="Project_Readme.html" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\FinanceBetterTrading.Domain\FinanceBetterTrading.Domain.csproj">
+      <Project>{68d70099-bdff-43ef-bd86-cdc6c2a56d26}</Project>
+      <Name>FinanceBetterTrading.Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\FinanceBetterTrading.Service\FinanceBetterTrading.Service.csproj">
+      <Project>{19ae0d9d-0311-40ef-be00-416a43f71775}</Project>
+      <Name>FinanceBetterTrading.Service</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\FinanceBetterTrading.WebRequest\FinanceBetterTrading.WebRequest.csproj">
+      <Project>{8ae8f7ab-4703-4be4-8569-a89eaef6189a}</Project>
+      <Name>FinanceBetterTrading.WebRequest</Name>
+    </ProjectReference>
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
@@ -241,7 +256,7 @@
         <WebProjectProperties>
           <UseIIS>True</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>22409</DevelopmentServerPort>
+          <DevelopmentServerPort>31098</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>http://localhost:22409/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
