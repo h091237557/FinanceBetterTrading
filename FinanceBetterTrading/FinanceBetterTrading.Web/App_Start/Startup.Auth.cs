@@ -28,11 +28,11 @@ namespace FinanceBetterTrading.Web
             //   consumerKey: "",
             //   consumerSecret: "");
 
-            //app.UseFacebookAuthentication(
-            //   appId: "",
-            //   appSecret: "");
+            app.UseFacebookAuthentication(
+               appId: "1377427549214779",
+              appSecret: "4a5041d256c6e23c0eeb3d24ae899a7e");
 
-            //app.UseGoogleAuthentication();
+            app.UseGoogleAuthentication();
         }
     }
 }
