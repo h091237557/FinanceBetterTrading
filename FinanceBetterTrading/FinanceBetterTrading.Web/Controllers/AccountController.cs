@@ -198,6 +198,7 @@ namespace FinanceBetterTrading.Web.Controllers
         public async Task<ActionResult> ExternalLoginCallback(string returnUrl)
         {
             var loginInfo = await AuthenticationManager.GetExternalLoginInfoAsync();
+
             if (loginInfo == null)
             {
                 return RedirectToAction("Login");
@@ -261,7 +262,9 @@ namespace FinanceBetterTrading.Web.Controllers
             if (ModelState.IsValid)
             {
                 // Get the information about the user from the external login provider
+               
                 var info = await AuthenticationManager.GetExternalLoginInfoAsync();
+               
                 if (info == null)
                 {
                     return View("ExternalLoginFailure");

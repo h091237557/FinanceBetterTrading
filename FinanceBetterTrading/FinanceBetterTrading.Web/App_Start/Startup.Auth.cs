@@ -33,6 +33,10 @@ namespace FinanceBetterTrading.Web
               appSecret: "4a5041d256c6e23c0eeb3d24ae899a7e");
 
             app.UseGoogleAuthentication();
+            app.UseQQAuthentication(
+                appId:"",
+                appKey:""               
+                );
         }
     }
 }
