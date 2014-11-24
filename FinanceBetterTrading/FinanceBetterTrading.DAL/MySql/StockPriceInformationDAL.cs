@@ -35,6 +35,58 @@ namespace FinanceBetterTrading.DAL
             command.ExecuteNonQuery();
             stock.Id = command.LastInsertedId.ToString();
         }
+
+        /// <summary>
+        /// 新增多筆資料進 StockPriceInformation 資料表
+        /// </summary>
+        /// <param name="stocksList"></param>
+        public void InsertBatch(List<StockPriceInformation> stocksList)
+        {
+            StringBuilder sw = new StringBuilder();
+            int count = stocksList.Count;
+            sw.Append("INSERT INTO StockPriceInformation ");
+            sw.Append(
+                "(Name,Code,Date,OpenPrice,ClosePrice,HeightPrice,LowerPrice,Volumn,TradeAmount,TradeShare,PriceSpread) VALUES");
+            for (int i = 0; i < count; i++)
+            {
+                sw.Append("(");
+                sw.Append("?Name" + i + ", ");
+                sw.Append("?Code" + i + ", ");
+                sw.Append("?Date" + i + ", ");
+                sw.Append("?OpenPrice" + i + ", ");
+                sw.Append("?ClosePrice" + i + ", ");
+                sw.Append("?HeightPrice" + i + ", ");
+                sw.Append("?LowerPrice" + i + ", ");
+                sw.Append("?Volumn" + i + ", ");
+                sw.Append("?TradeAmount" + i + ", ");
+                sw.Append("?TradeShare" + i + ", ");
+                sw.Append("?PriceSpread" + i );
+                sw.Append(")");
+
+                if (i != count - 1)
+                    sw.Append(",");
+            }
+            MySqlCommand command = connection.CreateCommand();
+            command.CommandText = sw.ToString();
+            for (int i = 0; i < count; i++)
+            {
+                command.Parameters.AddWithValue("?Name" + i, stocksList[i].Name);
+                command.Parameters.AddWithValue("?Code" + i, stocksList[i].Code);
+                command.Parameters.AddWithValue("?Date" + i, stocksList[i].Date);
+                command.Parameters.AddWithValue("?OpenPrice" + i, stocksList[i].OpenPrice);
+                command.Parameters.AddWithValue("?ClosePrice" + i, stocksList[i].ClosePrice);
+                command.Parameters.AddWithValue("?HeightPrice" + i, stocksList[i].HeightPrice);
+                command.Parameters.AddWithValue("?LowerPrice" + i, stocksList[i].LowerPrice);
+                command.Parameters.AddWithValue("?Volumn" + i, stocksList[i].Volumn);
+                command.Parameters.AddWithValue("?TradeAmount" + i, stocksList[i].TradeAmount);
+                command.Parameters.AddWithValue("?TradeShare" + i, stocksList[i].TradeShare);
+                command.Parameters.AddWithValue("?PriceSpread" + i, stocksList[i].PriceSpread);
+            }
+            command.ExecuteNonQuery();
+            for (int i = 0; i < count; i++)
+                stocksList[i].Id = i == 0 ? command.LastInsertedId.ToString() : (command.LastInsertedId + i).ToString();
+        }
+
         /// <summary>
         /// 刪除一筆資料進 StockPriceInformation 資料表
         /// </summary>
@@ -51,14 +103,7 @@ namespace FinanceBetterTrading.DAL
             command.ExecuteNonQuery();
             stock.Id = command.LastInsertedId.ToString();
         }
-        /// <summary>
-        /// 新增多筆資料進 StockPriceInformation 資料表
-        /// </summary>
-        /// <param name="stocks"></param>
-        public void Insert(List<StockPriceInformation> stocks)
-        {
-            
-        }
+
 
         public StockPriceInformation Select(string id)
         {

@@ -33,7 +33,9 @@ namespace FinanceBetterTrading.WebRequest
                 MemoryStream ms = new MemoryStream(client.DownloadData(url));
                 // 使用預設編碼讀入 HTML 
                 HtmlDocument doc = new HtmlDocument();
-                doc.Load(ms, Encoding.Default);          
+                doc.Load(ms, Encoding.Default);
+                if (doc.DocumentNode.InnerText.Contains("查無資料"))
+                    return null;
                 docStockContext.LoadHtml(doc.DocumentNode.SelectSingleNode(xPath).InnerHtml);
                 ms.Close();
                 return docStockContext;

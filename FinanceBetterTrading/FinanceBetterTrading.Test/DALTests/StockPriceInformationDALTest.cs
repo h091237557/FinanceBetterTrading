@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using FinanceBetterTrading.Web.App_Start;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using FinanceBetterTrading.DAL;
@@ -48,6 +49,35 @@ namespace FinanceBetterTrading.Test.DALTests
                     stockPriceInformationDal.Connection.Close();
             }
         }
+
+        [TestMethod]
+        public void TestInsertBatch()
+        {
+            StockPriceInformationDal stockPriceInformationDal = new StockPriceInformationDal();
+            try
+            {
+                using (var scrop = new TransactionScope())
+                {
+                    stockPriceInformationDal.Open(DBConn.Conn);
+                    List<StockPriceInformation> stocks = new List<StockPriceInformation>();
+                    stocks.Add(CreateStockObject());
+                    stocks.Add(CreateStockObject());
+
+                    stockPriceInformationDal.InsertBatch(stocks);
+
+                    var actual = stockPriceInformationDal.Select(stocks[0].Id).Name;
+                    var expect = stocks[0].Name;
+
+                    Assert.AreEqual(expect, actual);                  
+                }
+            }
+            finally
+            {
+                if (stockPriceInformationDal.Connection != null)
+                    stockPriceInformationDal.Connection.Close();
+            }
+        }
+
         [TestMethod]
         public void TestDelete()
         {

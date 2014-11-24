@@ -15,11 +15,11 @@ namespace FinanceBetterTrading.WebRequest
     public class RequestTWSE:RequestServer
     {
         /// <summary>
-        /// 取得該月股價資訊(TWSE證交所所)
+        /// 將HTML股票資料解碼。
         /// 因為證交所是以月為鋹
         /// </summary>
         /// <returns></returns>
-        private List<StockPriceInformation> GetStockPriceInformation(HtmlDocument htmlDocument)
+        private List<StockPriceInformation> DecodehtmlData(HtmlDocument htmlDocument)
         {
             List<StockPriceInformation> result = new List<StockPriceInformation>();
             string[] stockInformation = GetNameAndCode(htmlDocument);
@@ -32,7 +32,6 @@ namespace FinanceBetterTrading.WebRequest
                     count++;
                     if (count > 2)
                     {
- 
                         StockPriceInformation stockPrice = new StockPriceInformation();
                         stockPrice.Name = stockInformation[2].Trim();
                         stockPrice.Code = stockInformation[1];
@@ -57,7 +56,7 @@ namespace FinanceBetterTrading.WebRequest
         /// </summary>
         /// <param name="code"></param>
         /// <returns></returns>
-        public List<StockPriceInformation> GetStockPriceInformationBatch(string code)
+        public List<StockPriceInformation> GetStockPrice(string code)
         {
             List<StockPriceInformation> result = new List<StockPriceInformation>();
             DateTime date = DateTime.Now;
@@ -65,8 +64,7 @@ namespace FinanceBetterTrading.WebRequest
             string year = string.Empty;
             string month = string.Empty;
             HtmlDocument gethtmldata = new HtmlDocument();
-          
-           
+                    
             while (gethtmldata !=null)
             {              
                 time = date.ToString("yyyyMM");
@@ -79,21 +77,19 @@ namespace FinanceBetterTrading.WebRequest
                 try
                 {
                     gethtmldata = GetHtmlData(uri, "/html[1]/body[1]/table[1]/tr[3]/td[1]/table[3]");
-                    var data = GetStockPriceInformation(gethtmldata);
-                    result.AddRange(data);
-                    result.Reverse();
-                    date = date.AddMonths(-1);
+                    if (gethtmldata != null)
+                    {
+                        var data = DecodehtmlData(gethtmldata);
+                        result.AddRange(data);
+                        result.Reverse();
+                        date = date.AddMonths(-1);
+                    }
                 }
                 catch (Exception e)
                 {
-                    var test = uri;
                     throw e;
-                }
-            
-                
-               
+                }                                          
             }
-
             return result;
         }
 
@@ -107,9 +103,7 @@ namespace FinanceBetterTrading.WebRequest
             HtmlNodeCollection nodeHeader = htmlDocument.DocumentNode.SelectNodes("/tr[1]/td[1]/div[1]");
             string[] result = Regex.Split(nodeHeader[0].InnerText, "&nbsp;", RegexOptions.IgnoreCase);
             return result;
-        }
-
-       
+        }      
     }
 }
 
