@@ -74,6 +74,7 @@
   <ItemGroup>
     <Compile Include="DBConn.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="StockPriceService.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="UseDll\HtmlAgilityPack.dll" />
@@ -81,6 +82,20 @@
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\FinanceBetterTrading.DAL\FinanceBetterTrading.DAL.csproj">
+      <Project>{6b260b6a-0950-4377-9910-60518d8fb997}</Project>
+      <Name>FinanceBetterTrading.DAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\FinanceBetterTrading.Domain\FinanceBetterTrading.Domain.csproj">
+      <Project>{68d70099-bdff-43ef-bd86-cdc6c2a56d26}</Project>
+      <Name>FinanceBetterTrading.Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\FinanceBetterTrading.WebRequest\FinanceBetterTrading.WebRequest.csproj">
+      <Project>{8ae8f7ab-4703-4be4-8569-a89eaef6189a}</Project>
+      <Name>FinanceBetterTrading.WebRequest</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

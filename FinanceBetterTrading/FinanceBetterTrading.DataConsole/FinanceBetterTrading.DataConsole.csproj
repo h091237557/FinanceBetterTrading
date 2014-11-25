@@ -32,6 +32,18 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="MySql.Data, Version=6.7.4.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>UseDll\MySql.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="MySql.Data.Entity, Version=6.7.4.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>UseDll\MySql.Data.Entity.dll</HintPath>
+    </Reference>
+    <Reference Include="MySql.Web, Version=6.7.4.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>UseDll\MySql.Web.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -52,10 +64,27 @@
       <Project>{6b260b6a-0950-4377-9910-60518d8fb997}</Project>
       <Name>FinanceBetterTrading.DAL</Name>
     </ProjectReference>
+    <ProjectReference Include="..\FinanceBetterTrading.Domain\FinanceBetterTrading.Domain.csproj">
+      <Project>{68d70099-bdff-43ef-bd86-cdc6c2a56d26}</Project>
+      <Name>FinanceBetterTrading.Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\FinanceBetterTrading.Service\FinanceBetterTrading.Service.csproj">
+      <Project>{19ae0d9d-0311-40ef-be00-416a43f71775}</Project>
+      <Name>FinanceBetterTrading.Service</Name>
+    </ProjectReference>
     <ProjectReference Include="..\FinanceBetterTrading.WebRequest\FinanceBetterTrading.WebRequest.csproj">
       <Project>{8ae8f7ab-4703-4be4-8569-a89eaef6189a}</Project>
       <Name>FinanceBetterTrading.WebRequest</Name>
     </ProjectReference>
+    <ProjectReference Include="..\FinanceBetterTrading.Web\FinanceBetterTrading.Web.csproj">
+      <Project>{9f8f4908-5466-4520-890e-08e35b99904a}</Project>
+      <Name>FinanceBetterTrading.Web</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="UseDll\MySql.Data.dll" />
+    <Content Include="UseDll\MySql.Data.Entity.dll" />
+    <Content Include="UseDll\MySql.Web.dll" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

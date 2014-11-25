@@ -12,6 +12,7 @@ namespace FinanceBetterTrading.Web.App_Start
     {
         public static void Register()
         {
+            var tst = ConfigurationManager.ConnectionStrings["MySQL"].ConnectionString;
             DBConn.SetConnString(ConfigurationManager.ConnectionStrings["MySQL"].ConnectionString);
         }
     }
