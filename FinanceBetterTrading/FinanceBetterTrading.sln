@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
-VisualStudioVersion = 12.0.30723.0
+VisualStudioVersion = 12.0.21005.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FinanceBetterTrading.DAL", "FinanceBetterTrading.DAL\FinanceBetterTrading.DAL.csproj", "{6B260B6A-0950-4377-9910-60518D8FB997}"
 EndProject
@@ -18,6 +18,11 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FinanceBetterTrading.Web", "FinanceBetterTrading.Web\FinanceBetterTrading.Web.csproj", "{9F8F4908-5466-4520-890E-08E35B99904A}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FinanceBetterTrading.DataConsole", "FinanceBetterTrading.DataConsole\FinanceBetterTrading.DataConsole.csproj", "{3DA06CDA-88E8-48F6-BCA0-7FBDB4A639A4}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{76A84925-9C57-4DC0-B027-8479B12F83ED}"
+	ProjectSection(SolutionItems) = preProject
+		.nuget\packages.config = .nuget\packages.config
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SubversionScc) = preSolution
