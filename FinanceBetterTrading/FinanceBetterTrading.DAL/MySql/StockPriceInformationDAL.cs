@@ -93,9 +93,7 @@ namespace FinanceBetterTrading.DAL
         /// <param name="stock"></param>
         public void Delete(StockPriceInformation stock)
         {
-
             MySqlCommand command = connection.CreateCommand();
-
             command.CommandText = "DELETE FROM  StockPriceInformation ";
             command.CommandText += " WHERE Code = ?Code AND OpenPrice = ?OpenPrice";
             command.Parameters.AddWithValue("?Code", stock.Code);
@@ -104,7 +102,35 @@ namespace FinanceBetterTrading.DAL
             stock.Id = command.LastInsertedId.ToString();
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="code"></param>
+        /// <returns></returns>
+        public List<StockPriceInformation> SelectByCode(string code)
+        {
+            List<StockPriceInformation> result = new List<StockPriceInformation>();
+            MySqlCommand command = connection.CreateCommand();
+            command.CommandText = "SELECT * FROM  StockPriceInformation ";
+            command.CommandText += "WHERE Code = ?Code";
+            command.Parameters.AddWithValue("?Code", code);
+            var reader = command.ExecuteReader();
 
+            while (reader.Read())
+            {
+                StockPriceInformation stock = new StockPriceInformation();
+                ReadAll(stock,reader);
+                result.Add(stock);
+            }
+            reader.Close();
+            return result;
+        }
+
+        /// <summary>
+        /// 測試時使用
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public StockPriceInformation Select(string id)
         {
             StockPriceInformation stock = new StockPriceInformation();

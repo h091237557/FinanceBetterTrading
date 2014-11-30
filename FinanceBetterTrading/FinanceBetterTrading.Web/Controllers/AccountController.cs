@@ -205,19 +205,19 @@ namespace FinanceBetterTrading.Web.Controllers
             }
 
             // Sign in the user with this external login provider if the user already has a login
-            var user = await UserManager.FindAsync(loginInfo.Login);
-            if (user != null)
-            {
-                await SignInAsync(user, isPersistent: false);
-                return RedirectToLocal(returnUrl);
-            }
-            else
-            {
+            //var user = null;
+            //if (user != null)
+           // {
+                //await SignInAsync(user, isPersistent: false);
+                //return RedirectToLocal(returnUrl);
+            //}
+           // else
+            //{
                 // If the user does not have an account, then prompt the user to create an account
                 ViewBag.ReturnUrl = returnUrl;
                 ViewBag.LoginProvider = loginInfo.Login.LoginProvider;
                 return View("ExternalLoginConfirmation", new ExternalLoginConfirmationViewModel { UserName = loginInfo.DefaultUserName });
-            }
+           // }
         }
 
         //

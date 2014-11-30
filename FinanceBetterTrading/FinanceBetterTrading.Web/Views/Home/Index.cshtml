@@ -8,14 +8,43 @@
     <title>ECharts</title>
 </head>
 <body>
-    <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
+    <div>
+        <input type="text" class="form-control" name="code" id="code" value="3514" />
+        <input type="submit" class="btn btn-success" name="getdata" id="getdata" />
+    </div>
     <div id="main" style="height:400px"></div>
-    <!-- ECharts单文件引入 -->
+
 
 </body>
 
-<script src="http://echarts.baidu.com/build/dist/echarts.js"></script>
+@section scripts
+{
+    <script src="http://echarts.baidu.com/build/dist/echarts.js"></script>
 <script type="text/javascript">
+
+    $(function () {    
+        $("#getdata").click(function () {          
+            $.ajax({
+                url: '@Url.Action("GetStockPrice","Home")',
+                data: {
+                    code:$("#code").val()
+                },
+                type: "POST",
+
+                success: function (data) {
+                    debugger;
+                    var test = data;
+                },
+
+                error: function (xhr, ajaxOptions, thrownError) {
+                    alert(xhr.status);
+                    alert(thrownError);
+                }
+            });
+        });
+    });
+
+
     // 路径配置
     require.config({
         paths: {
@@ -205,3 +234,5 @@
         }
     );
 </script>
+}
+
