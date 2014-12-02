@@ -151,7 +151,7 @@ namespace FinanceBetterTrading.DAL
         {
             stock.Name = reader["Name"].ToString();
             stock.Code = reader["Code"].ToString();
-            stock.Date = reader["Date"].ToString();
+            stock.Date = DateTime.Parse(reader["Date"].ToString()).ToString("yyyy-MM-dd"); 
             stock.OpenPrice = float.Parse(reader["OpenPrice"].ToString());
             stock.HeightPrice = float.Parse(reader["HeightPrice"].ToString());
             stock.LowerPrice = float.Parse(reader["LowerPrice"].ToString());
