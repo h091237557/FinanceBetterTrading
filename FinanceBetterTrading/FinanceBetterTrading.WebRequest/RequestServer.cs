@@ -13,6 +13,7 @@ using FinanceBetterTrading.Domain;
 using FinanceBetterTrading.Domain.Extension;
 using HtmlAgilityPack;
 
+
 namespace FinanceBetterTrading.WebRequest
 {
     public class RequestServer
@@ -44,6 +45,43 @@ namespace FinanceBetterTrading.WebRequest
             {
                 return null;
             }           
-        }       
+        }
+
+        public HtmlDocument GetPostHtmlData(string url, string formdata, string xPath)
+        {
+            ASCIIEncoding ascii = new ASCIIEncoding();
+            byte[] postBytes = ascii.GetBytes(formdata);
+            HttpWebRequest webRequest = (HttpWebRequest) System.Net.WebRequest.Create(url);
+            HtmlDocument docStockContext = new HtmlDocument();
+            webRequest.Method = "POST";
+            webRequest.ContentType = "application/x-www-form-urlencoded";
+            webRequest.ContentLength = postBytes.Length;
+
+            Stream postStream = webRequest.GetRequestStream();
+            postStream.Write(postBytes, 0, postBytes.Length);
+            postStream.Flush();
+            postStream.Close();
+
+            try
+            {
+                var httpResponse = (HttpWebResponse)webRequest.GetResponse();
+                Encoding encode = Encoding.GetEncoding("big5"); 
+                using (var streamReader = new StreamReader(httpResponse.GetResponseStream(),encode))
+                {
+                    HtmlDocument doc = new HtmlDocument();
+                    doc.Load(streamReader.BaseStream, Encoding.Default);
+                    if (doc.DocumentNode.InnerText.Contains("查無資料"))
+                        return null;
+                    docStockContext.LoadHtml(doc.DocumentNode.SelectSingleNode(xPath).InnerHtml);
+                }
+                httpResponse.Close();
+                httpResponse.Dispose();
+                return docStockContext;
+            }
+            catch (Exception e)
+            {
+                return null;
+            }
+        }
     }
 }

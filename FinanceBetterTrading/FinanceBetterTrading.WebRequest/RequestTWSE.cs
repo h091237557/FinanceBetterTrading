@@ -1,12 +1,14 @@
 
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
+﻿using System.Globalization;
+﻿using System.Linq;
 ﻿using System.Runtime.Remoting.Messaging;
 ﻿using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
-using FinanceBetterTrading.Domain;
+﻿using System.Web;
+﻿using FinanceBetterTrading.Domain;
 using FinanceBetterTrading.Domain.Extension;
 using HtmlAgilityPack;
 
@@ -25,29 +27,54 @@ namespace FinanceBetterTrading.WebRequest
             string[] stockInformation = GetNameAndCode(htmlDocument);
             var pricehtml = htmlDocument.DocumentNode.ChildNodes;
             int count = 0;
+
             foreach (var item in pricehtml)
             {
-                if (item.Name == "tr")
+                try
                 {
-                    count++;
-                    if (count > 2)
+                    if (item.Name == "tr")
                     {
-                        StockPriceInformation stockPrice = new StockPriceInformation();
-                        stockPrice.Name = stockInformation[2].Trim();
-                        stockPrice.Code = stockInformation[1];
-                        stockPrice.Date = item.SelectNodes("./td[1]")[0].InnerText;
-                        stockPrice.TradeShare = item.SelectNodes("./td[2]")[0].InnerText.ParseThousandthString();
-                        stockPrice.TradeAmount = item.SelectNodes("./td[3]")[0].InnerText.ParseThousandthString();
-                        stockPrice.OpenPrice = float.Parse(item.SelectNodes("./td[4]")[0].InnerText);
-                        stockPrice.HeightPrice = float.Parse(item.SelectNodes("./td[5]")[0].InnerText);
-                        stockPrice.LowerPrice = float.Parse(item.SelectNodes("./td[6]")[0].InnerText);
-                        stockPrice.ClosePrice = float.Parse(item.SelectNodes("./td[7]")[0].InnerText);
-                       // stockPrice.PriceSpread = float.Parse(item.SelectNodes("./td[8]")[0].InnerText);
-                        stockPrice.Volumn = item.SelectNodes("./td[9]")[0].InnerText.ParseThousandthString();
-                        result.Add(stockPrice);
+                        count++;
+                        if (count > 2)
+                        {
+                            StockPriceInformation stockPrice = new StockPriceInformation();
+                            stockPrice.Name = stockInformation[2].Trim();
+                            stockPrice.Code = stockInformation[1];
+                            stockPrice.Date = ChangeDateFormate(item.SelectNodes("./td[1]")[0].InnerText);
+                            stockPrice.TradeShare = item.SelectNodes("./td[2]")[0].InnerText.ParseThousandthString();
+                            stockPrice.TradeAmount = item.SelectNodes("./td[3]")[0].InnerText.ParseThousandthString();
+                            stockPrice.OpenPrice = float.Parse(item.SelectNodes("./td[4]")[0].InnerText);
+                            stockPrice.HeightPrice = float.Parse(item.SelectNodes("./td[5]")[0].InnerText);
+                            stockPrice.LowerPrice = float.Parse(item.SelectNodes("./td[6]")[0].InnerText);
+                            stockPrice.ClosePrice = float.Parse(item.SelectNodes("./td[7]")[0].InnerText);
+                            // stockPrice.PriceSpread = float.Parse(item.SelectNodes("./td[8]")[0].InnerText);
+                            stockPrice.Volumn = item.SelectNodes("./td[9]")[0].InnerText.ParseThousandthString();
+                            result.Add(stockPrice);
+                        }
                     }
                 }
+                catch (Exception e)
+                {
+                    var errordate = item.SelectNodes("./td[1]")[0].InnerText;
+                    var error = ChangeDateFormate(item.SelectNodes("./td[1]")[0].InnerText);
+                    throw e;
+                }
+         
             }
+            return result;
+        }
+
+        /// <summary>
+        /// 爛爆了…(民國轉西元)
+        /// 2/29日掛掉
+        /// </summary>
+        /// <param name="date"></param>
+        /// <returns></returns>
+        public string ChangeDateFormate(string date)
+        {
+            string temp = date.Substring(0, 3);
+            var temp1 = Convert.ToInt16(temp) + 1911;
+            string result = date.Replace(temp, temp1.ToString());
             return result;
         }
 
