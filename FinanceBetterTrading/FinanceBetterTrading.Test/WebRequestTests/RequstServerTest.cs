@@ -54,7 +54,7 @@ namespace FinanceBetterTrading.UITest.WebRequestTests
             postData.Append(HttpUtility.UrlEncode(String.Format("w_date={0}&", "20141201")));
             postData.Append(HttpUtility.UrlEncode(String.Format("m_date={0}", "20141201")));
             string url = "http://www.twse.com.tw/ch/trading/fund/BFI82U/BFI82U.php";
-            requestServer.GetPostHtmlData(url, postData.ToString(), "/html[1]");
+            var result = requestServer.GetPostHtmlData(url, postData.ToString(), "/html[1]");
         }
     }
 }

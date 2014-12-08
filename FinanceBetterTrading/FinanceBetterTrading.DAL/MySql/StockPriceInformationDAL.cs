@@ -112,7 +112,7 @@ namespace FinanceBetterTrading.DAL
             List<StockPriceInformation> result = new List<StockPriceInformation>();
             MySqlCommand command = connection.CreateCommand();
             command.CommandText = "SELECT * FROM  StockPriceInformation ";
-            command.CommandText += "WHERE Code = ?Code";
+            command.CommandText += "WHERE Code = ?Code Order By Date";
             command.Parameters.AddWithValue("?Code", code);
             var reader = command.ExecuteReader();
 

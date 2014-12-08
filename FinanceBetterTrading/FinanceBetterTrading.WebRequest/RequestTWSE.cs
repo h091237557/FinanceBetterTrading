@@ -65,16 +65,16 @@ namespace FinanceBetterTrading.WebRequest
         }
 
         /// <summary>
-        /// 爛爆了…(民國轉西元)
-        /// 2/29日掛掉
+        /// 民國轉西元(請代入格式為:101/01/01類型)
+        /// (想想有沒有更好的寫法)
         /// </summary>
         /// <param name="date"></param>
         /// <returns></returns>
         public string ChangeDateFormate(string date)
         {
-            string temp = date.Substring(0, 3);
-            var temp1 = Convert.ToInt16(temp) + 1911;
-            string result = date.Replace(temp, temp1.ToString());
+            var temp = date.Split('/');
+            var temp1 = Convert.ToInt16(temp[0]) + 1911;
+            string result = date.Replace(temp[0], temp1.ToString());
             return result;
         }
 

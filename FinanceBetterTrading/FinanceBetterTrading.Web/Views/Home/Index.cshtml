@@ -20,7 +20,7 @@
 @section scripts
 {
 <script src="~/TypeScript/file1.js"></script>
-<script src="http://echarts.baidu.com/build/dist/echarts.js"></script>
+<script src="~/Scripts/Echart/echarts.js"></script>
 <script type="text/javascript">
 
     $(function () {
@@ -32,13 +32,12 @@
                     code:$("#code").val()
                 },
                 type: "POST",
-
                 success: function (data) {
-                    debugger;
                     var kline = new KLine();
                     kline.GetData(data);
                     price = kline.pricedata;
                     date = kline.timedata;
+                    title = kline.title;
                     echartrequeir(price, date);
                 },
 
@@ -53,7 +52,7 @@
             // 路径配置
             require.config({
                 paths: {
-                    echarts: 'http://echarts.baidu.com/build/dist'
+                    echarts: '../Scripts/Echart/dist'
                 }
             });
 
@@ -61,7 +60,7 @@
             require(
                 [
                     'echarts',
-                    'echarts/chart/k' // 使用柱状图就加载bar模块，按需加载
+                    'echarts/chart/k' //資料夾位置
                 ],
                 function (ec) {
                     // 基于准备好的dom，初始化echarts图表
@@ -69,7 +68,7 @@
 
                     var option = {
                         title: {
-                            text: '2013年上半年上证指数'
+                            text: title
                         },
                         tooltip: {
                             trigger: 'axis',
@@ -81,7 +80,7 @@
                             }
                         },
                         legend: {
-                            data: ['上证指数']
+                            data: [title]
                         },
                         toolbox: {
                             show: true,
@@ -118,7 +117,7 @@
                         ],
                         series: [
                             {
-                                name: '上证指数',
+                                name: title,
                                 type: 'k',
                                 data: price
                             }
