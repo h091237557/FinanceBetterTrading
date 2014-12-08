@@ -103,6 +103,10 @@ namespace FinanceBetterTrading.WebRequest
                         time, code, year, month);
                 try
                 {
+                    //如果是網頁是用Post抓取資料的請改呼叫
+                    // GetPostHtmlData(url, postdata, xpath);
+                    //請看測試RequestServerTest裡的 TestPostdata() 
+                    //Xpath要自已解析
                     gethtmldata = GetHtmlData(uri, "/html[1]/body[1]/table[1]/tr[3]/td[1]/table[3]");
                     if (gethtmldata != null)
                     {
