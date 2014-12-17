@@ -1,16 +1,16 @@
 ﻿
 class KLine {
 
-    title: string;
-    legend: string;
+    title: string = "";
+    legend: string = "";
     timedata: string[] = [];
-    pricedata : Object[] =[];
+    pricedata: Object[] = [];
 
     GetData(jsondata: Object[]) {
         var count = jsondata.length;
         this.title = jsondata[0]["Name"];
         this.legend = jsondata[0]["Name"];
-        
+
 
         for (var i = 0; i < count; i++) {
             this.timedata.push(jsondata[i]["Date"]);
@@ -22,7 +22,7 @@ class KLine {
 
             this.pricedata.push(temp);
         }
-        
+
     }
 
 }

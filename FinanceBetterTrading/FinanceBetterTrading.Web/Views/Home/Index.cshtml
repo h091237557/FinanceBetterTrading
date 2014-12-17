@@ -19,8 +19,10 @@
 
 @section scripts
 {
-<script src="~/TypeScript/file1.js"></script>
-<script src="~/Scripts/Echart/echarts.js"></script>
+    <script src="~/TypeScript/KLine.js"></script>
+    <script src="~/Scripts/Echart/echarts_all.js"></script>
+    <script src="~/JavascriptOwn/EChartDefault.js"></script>
+
 <script type="text/javascript">
 
     $(function () {
@@ -33,12 +35,17 @@
                 },
                 type: "POST",
                 success: function (data) {
+                    debugger;
                     var kline = new KLine();
                     kline.GetData(data);
-                    price = kline.pricedata;
-                    date = kline.timedata;
-                    title = kline.title;
-                    echartrequeir(price, date);
+
+                    var targetObj = document.getElementById('main');
+                    var echartKline = new echartDefault(require);
+                    echartKline.date = kline.timedata;
+                    echartKline.price = kline.pricedata;
+                    echartKline.title = kline.title;
+                    echartKline.defaultOption(targetObj);
+
                 },
 
                 error: function (xhr, ajaxOptions, thrownError) {
@@ -46,93 +53,7 @@
                     alert(thrownError);
                 }
             });
-        });
-
-        function echartrequeir(price, date) {
-            // 路径配置
-            require.config({
-                paths: {
-                    echarts: '../Scripts/Echart/dist'
-                }
-            });
-
-            // 使用
-            require(
-                [
-                    'echarts',
-                    'echarts/chart/k' //資料夾位置
-                ],
-                function (ec) {
-                    // 基于准备好的dom，初始化echarts图表
-                    var myChart = ec.init(document.getElementById('main'));
-
-                    var option = {
-                        title: {
-                            text: title
-                        },
-                        tooltip: {
-                            trigger: 'axis',
-                            formatter: function (params) {
-                                var res = params[0].seriesName + ' ' + params[0].name;
-                                res += '<br/>  开盘 : ' + params[0].value[0] + '  最高 : ' + params[0].value[3];
-                                res += '<br/>  收盘 : ' + params[0].value[1] + '  最低 : ' + params[0].value[2];
-                                return res;
-                            }
-                        },
-                        legend: {
-                            data: [title]
-                        },
-                        toolbox: {
-                            show: true,
-                            feature: {
-                                mark: { show: true },
-                                dataZoom: { show: true },
-                                dataView: { show: true, readOnly: false },
-                                magicType: { show: true, type: ['line', 'bar'] },
-                                restore: { show: true },
-                                saveAsImage: { show: true }
-                            }
-                        },
-                        dataZoom: {
-                            show: true,
-                            realtime: true,
-                            start: 50,
-                            end: 100
-                        },
-                        xAxis: [
-                            {
-                                type: 'category',
-                                boundaryGap: true,
-                                axisTick: { onGap: false },
-                                splitLine: { show: false },
-                                data: date
-                            }
-                        ],
-                        yAxis: [
-                            {
-                                type: 'value',
-                                scale: true,
-                                boundaryGap: [0.01, 0.01]
-                            }
-                        ],
-                        series: [
-                            {
-                                name: title,
-                                type: 'k',
-                                data: price
-                            }
-                        ]
-                    };
-
-
-                    // 为echarts对象加载数据
-                    myChart.setOption(option);
-                }
-            );
-        }
-
-       
-
+        });   
     });
 
 
