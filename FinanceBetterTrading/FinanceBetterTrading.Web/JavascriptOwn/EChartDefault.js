@@ -1,8 +1,5 @@
 ﻿
 
-var echartConfig = {
-
-};
 
 var echartDefault = (function () {
     function echartDefault(echartRequrie) {
@@ -12,24 +9,21 @@ var echartDefault = (function () {
         this.date = [];
         this.reqirepath = ['echarts', 'echarts/chart/k'];
         this.echartqeuire = echartRequrie;
-
-        //無法使用this.target在下面的ec.int(target),原因待查
-        this.target;
-
-
     }
 
     echartDefault.prototype.defaultOption = function (target) {
+        var that = this;
         this.echartqeuire.config({
             paths: {
                 echarts: '../Scripts/Echart/dist'
             }
         });
         this.echartqeuire(this.reqirepath, function (ec) {
+            
             var myChart = ec.init(target);
             var option = {
                 title: {
-                    text: this.title
+                    text: that.title
                 },
                 tooltip: {
                     trigger: 'axis',
@@ -41,7 +35,7 @@ var echartDefault = (function () {
                     }
                 },
                 legend: {
-                    data: [this.title]
+                    data: [that.title]
                 },
                 toolbox: {
                     show: true,
@@ -66,7 +60,7 @@ var echartDefault = (function () {
                         boundaryGap: true,
                         axisTick: { onGap: false },
                         splitLine: { show: false },
-                        data: this.date
+                        data: that.date
                     }
                 ],
                 yAxis: [
@@ -78,9 +72,9 @@ var echartDefault = (function () {
                 ],
                 series: [
                     {
-                        name: this.title,
+                        name: that.title,
                         type: 'k',
-                        data: this.price
+                        data: that.price
                     }
                 ]
             };
