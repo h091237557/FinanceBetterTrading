@@ -18,7 +18,7 @@ namespace FinanceBetterTrading.DAL.MySql
         {
             List<StockInformation> result = new List<StockInformation>();
             MySqlCommand command = connection.CreateCommand();
-            command.CommandText = "SELECT * FROM stock";
+            command.CommandText = "SELECT * FROM stock WHERE IsGetHistoryPrice=false";
             var reader = command.ExecuteReader();
 
             while (reader.Read())
@@ -29,6 +29,18 @@ namespace FinanceBetterTrading.DAL.MySql
             }
             reader.Close();
             return result;
+        }
+
+
+        /// <summary>
+        /// 記錄某支股票已抓取歷史股價
+        /// </summary>
+        public void UpdateIsGetHistoryPrice(string code)
+        {
+            MySqlCommand command = connection.CreateCommand();
+            command.CommandText = "UPDATE stock SET IsGetHistoryPrice=true WHERE Code=?code";
+            command.Parameters.AddWithValue("?code", code);
+            command.ExecuteNonQuery();
         }
 
         /// <summary>

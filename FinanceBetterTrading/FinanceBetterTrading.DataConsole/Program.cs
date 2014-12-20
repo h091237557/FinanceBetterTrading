@@ -35,17 +35,18 @@ namespace FinanceBetterTrading.DataConsole
 
             try
             {
-
                 stockPriceInformationDal.Open(DBConn.Conn);
                 stockDal.Connection = stockPriceInformationDal.Connection;
                 var allStock = stockDal.SelectAll();
 
                 foreach (var stock in allStock)
                 {
+                    Console.WriteLine("{0} 開始進行", stock.Code);
                     var stockPrice = requestTwse.GetStockPrice(stock.Code);
                     Console.WriteLine("{0} 成功從TWSE抓取", stock.Code);
                     stockPriceInformationDal.InsertBatch(stockPrice);
                     Console.WriteLine("{0} 成功匯入", stock.Code);
+                    stockDal.UpdateIsGetHistoryPrice(stock.Code);
                 }
 
             }
