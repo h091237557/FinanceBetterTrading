@@ -65,6 +65,60 @@ namespace FinanceBetterTrading.WebRequest
         }
 
         /// <summary>
+        /// 將HTML法人資料解碼。
+        /// 因為證交所是以日為鋹
+        /// </summary>
+        /// <returns></returns>
+        private List<InstitutionalInvestorsScheduleDataInformation> DecodehtmlInstitutionalInvestorsData(HtmlDocument htmlDocument)
+        {
+            List<InstitutionalInvestorsScheduleDataInformation> result = new List<InstitutionalInvestorsScheduleDataInformation>();
+            //string[] stockInformation = GetNameAndCode(htmlDocument);
+            var pricehtml = htmlDocument.DocumentNode.ChildNodes;
+            int count = 0;
+
+            foreach (var item in pricehtml)
+            {
+                try
+                {
+                    if (item.Name == "tr")
+                    {
+                        count++;
+                        if (count > 2)
+                        {
+                            InstitutionalInvestorsScheduleDataInformation InstitutionalInvestorsSchedule = new InstitutionalInvestorsScheduleDataInformation();
+                            //stockPrice.Name = stockInformation[2].Trim();
+                            //stockPrice.Code = stockInformation[1];
+                            //InstitutionalInvestorsSchedule.Date = ChangeDateFormate(item.SelectNodes("./td[1]")[0].InnerText);
+                            InstitutionalInvestorsSchedule.StockCode = item.SelectNodes("./td[1]")[0].InnerText;
+                            InstitutionalInvestorsSchedule.ForeignCapitalBuyShares = item.SelectNodes("./td[3]")[0].InnerText.ParseThousandthString();
+                            InstitutionalInvestorsSchedule.ForeignCapitalSellShares = item.SelectNodes("./td[4]")[0].InnerText.ParseThousandthString();
+                            //InstitutionalInvestorsSchedule.ForeignCapitalBuySellShares = item.SelectNodes("./td[5]")[0].InnerText.ParseThousandthString();
+                            InstitutionalInvestorsSchedule.InvestmentTrustBuyShares = item.SelectNodes("./td[5]")[0].InnerText.ParseThousandthString();
+                            InstitutionalInvestorsSchedule.InvestmentTrustSellShares = item.SelectNodes("./td[6]")[0].InnerText.ParseThousandthString();
+                            //InstitutionalInvestorsSchedule.InvestmentTrustBuySellShares = item.SelectNodes("./td[3]")[0].InnerText.ParseThousandthString();
+                            InstitutionalInvestorsSchedule.DealerBuySharesProprietaryTrading = item.SelectNodes("./td[7]")[0].InnerText.ParseThousandthString();
+                            InstitutionalInvestorsSchedule.DealerSellSharesProprietaryTrading = item.SelectNodes("./td[8]")[0].InnerText.ParseThousandthString();
+                            //InstitutionalInvestorsSchedule.DealerBuySellSharesProprietaryTrading = item.SelectNodes("./td[3]")[0].InnerText.ParseThousandthString();
+                            InstitutionalInvestorsSchedule.DealerBuySharesHedge = item.SelectNodes("./td[9]")[0].InnerText.ParseThousandthString();
+                            InstitutionalInvestorsSchedule.DealerSellSharesHedge = item.SelectNodes("./td[10]")[0].InnerText.ParseThousandthString();
+                            //InstitutionalInvestorsSchedule.DealerBuySellSharesHedge = item.SelectNodes("./td[3]")[0].InnerText.ParseThousandthString();
+                            InstitutionalInvestorsSchedule.InstitutionalInvestorsBuySellShares = item.SelectNodes("./td[11]")[0].InnerText.ParseThousandthString();
+                            result.Add(InstitutionalInvestorsSchedule);
+                        }
+                    }
+                }
+                catch (Exception e)
+                {
+                    var errorStockCode = item.SelectNodes("./td[1]")[0].InnerText;
+                    //var error = ChangeDateFormate(item.SelectNodes("./td[1]")[0].InnerText);
+                    throw e;
+                }
+
+            }
+            return result;
+        }
+
+        /// <summary>
         /// 民國轉西元(請代入格式為:101/01/01類型)
         /// (想想有沒有更好的寫法)
         /// </summary>
@@ -120,6 +174,48 @@ namespace FinanceBetterTrading.WebRequest
                 {
                     throw e;
                 }                                          
+            }
+            return result;
+        }
+
+        /// <summary>
+        /// 抓取當日三大法人當日資料。
+        /// </summary>
+        /// <param name="date"></param>
+        /// <returns></returns>
+        public List<InstitutionalInvestorsScheduleDataInformation> GetInstitutionalInvestorsScheduleData(string date)
+        {
+            List<InstitutionalInvestorsScheduleDataInformation> result = new List<InstitutionalInvestorsScheduleDataInformation>();
+            HtmlDocument gethtmldata = new HtmlDocument();
+
+            while (gethtmldata != null)
+            {
+                string uri =
+                    string.Format("http://www.twse.com.tw/ch/trading/fund/T86/T86.php");
+                try
+                {
+                    //如果是網頁是用Post抓取資料的請改呼叫
+                    //GetPostHtmlData(url, postdata, xpath);
+                    //請看測試RequestServerTest裡的 TestPostdata() 
+                    //Xpath要自已解析
+                    StringBuilder postData = new StringBuilder();
+                    postData.Append(HttpUtility.UrlEncode(String.Format("input_date={0}&", "day")));
+                    postData.Append(HttpUtility.UrlEncode(String.Format("select2={0}&", "ALL")));
+                    postData.Append(HttpUtility.UrlEncode(String.Format("sorting={0}&", "by_stkno")));
+                    postData.Append(String.Format("login_btn={0}&", "%ACd%B8%DF"));
+                    gethtmldata = GetPostHtmlData(uri, postData.ToString(), "/html[1]/body[1]/table[1]/tr[3]/td[1]/table[4]"); //要解開
+                    if (gethtmldata != null) 
+                    {
+                        var data = DecodehtmlInstitutionalInvestorsData(gethtmldata);
+                        result.AddRange(data);
+                        result.Reverse();
+                      //  date = date.AddMonths(-1);
+                    }
+                }
+                catch (Exception e)
+                {
+                    throw e;
+                }
             }
             return result;
         }

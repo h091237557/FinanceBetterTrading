@@ -71,6 +71,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="MySqlDal.cs" />
+    <Compile Include="MySql\InstitutionalInvestorsInformationDAL.cs" />
     <Compile Include="MySql\StockDAL.cs" />
     <Compile Include="MySql\StockPriceInformationDAL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

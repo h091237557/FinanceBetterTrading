@@ -25,6 +25,11 @@ namespace FinanceBetterTrading.DataConsole
             {
                 InsertStockPrice();;
             }
+            if (y == "w")
+            {
+                InsertInstitutionalInvestorsScheduleData();;
+            }
+
         }
 
         private static void InsertStockPrice()
@@ -59,6 +64,31 @@ namespace FinanceBetterTrading.DataConsole
             {
                 if (stockPriceInformationDal.Connection != null)
                     stockPriceInformationDal.Connection.Close();
+            }
+        }
+
+        private static void InsertInstitutionalInvestorsScheduleData()
+        {
+            RequestTWSE requestTwse = new RequestTWSE();
+            InstitutionalInvestorsInformationDAL InstitutionalInvestorsInformationDal = new InstitutionalInvestorsInformationDAL();
+
+            //var result = requestTwse.GetInstitutionalInvestorsScheduleData();
+
+            try
+            {
+                InstitutionalInvestorsInformationDal.Open(DBConn.Conn);
+                //InstitutionalInvestorsInformationDal.InsertBatch(result);
+                var InstitutionalInvestorsList = requestTwse.GetInstitutionalInvestorsScheduleData("103/12/19");
+                InstitutionalInvestorsInformationDal.InsertBatch(InstitutionalInvestorsList);
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+            finally
+            {
+                if (InstitutionalInvestorsInformationDal.Connection != null)
+                    InstitutionalInvestorsInformationDal.Connection.Close();
             }
         }
     }
