@@ -9,7 +9,7 @@ namespace FinanceBetterTrading.Domain.Extension
 {
     public static class StringExtension
     {
-        public static int ParseThousandthString(this string thousandthStr)
+        public static int ParseThousandtoString(this string thousandthStr)
         {
             int _value = -1;
             if (!string.IsNullOrEmpty(thousandthStr))
@@ -24,6 +24,21 @@ namespace FinanceBetterTrading.Domain.Extension
                 }
             }
             return _value;
+        }
+
+        /// <summary>
+        /// 將特殊字元轉換成0
+        /// </summary>
+        /// <param name="str"></param>
+        /// <returns></returns>
+        public static string ParseSymbolsTostrZero(this string str)
+        {
+            string result = str;
+
+            if (str.Trim() == "--")
+                result = "0";
+
+            return result;
         }
     }
 }

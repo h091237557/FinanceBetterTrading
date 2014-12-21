@@ -1,5 +1,5 @@
-
-﻿using System;
+﻿
+ using System;
 using System.Collections.Generic;
 ﻿using System.Globalization;
 ﻿using System.Linq;
@@ -41,14 +41,14 @@ namespace FinanceBetterTrading.WebRequest
                             stockPrice.Name = stockInformation[2].Trim();
                             stockPrice.Code = stockInformation[1];
                             stockPrice.Date = ChangeDateFormate(item.SelectNodes("./td[1]")[0].InnerText);
-                            stockPrice.TradeShare = item.SelectNodes("./td[2]")[0].InnerText.ParseThousandthString();
-                            stockPrice.TradeAmount = item.SelectNodes("./td[3]")[0].InnerText.ParseThousandthString();
-                            stockPrice.OpenPrice = float.Parse(item.SelectNodes("./td[4]")[0].InnerText);
-                            stockPrice.HeightPrice = float.Parse(item.SelectNodes("./td[5]")[0].InnerText);
-                            stockPrice.LowerPrice = float.Parse(item.SelectNodes("./td[6]")[0].InnerText);
-                            stockPrice.ClosePrice = float.Parse(item.SelectNodes("./td[7]")[0].InnerText);
+                            stockPrice.TradeShare = item.SelectNodes("./td[2]")[0].InnerText.ParseThousandtoString();
+                            stockPrice.TradeAmount = item.SelectNodes("./td[3]")[0].InnerText.ParseThousandtoString();
+                            stockPrice.OpenPrice = float.Parse(item.SelectNodes("./td[4]")[0].InnerText.ParseSymbolsTostrZero());
+                            stockPrice.HeightPrice = float.Parse(item.SelectNodes("./td[5]")[0].InnerText.ParseSymbolsTostrZero());
+                            stockPrice.LowerPrice = float.Parse(item.SelectNodes("./td[6]")[0].InnerText.ParseSymbolsTostrZero());
+                            stockPrice.ClosePrice = float.Parse(item.SelectNodes("./td[7]")[0].InnerText.ParseSymbolsTostrZero());
                             // stockPrice.PriceSpread = float.Parse(item.SelectNodes("./td[8]")[0].InnerText);
-                            stockPrice.Volumn = item.SelectNodes("./td[9]")[0].InnerText.ParseThousandthString();
+                            stockPrice.Volumn = item.SelectNodes("./td[9]")[0].InnerText.ParseThousandtoString();
                             result.Add(stockPrice);
                         }
                     }
