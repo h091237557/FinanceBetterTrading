@@ -13,13 +13,13 @@ namespace FinanceBetterTrading.Service
     public class StockPriceService
     {
         private static readonly ILog Logger = LogManager.GetLogger(typeof(StockPriceService));
-        public List<StockPriceInformation> GetStockPriceByCode(string code)
+        public List<StockPrice> GetStockPriceByCode(string code)
         {
-            StockPriceInformationDal stockPriceInformationDal = new StockPriceInformationDal();
+            StockPriceDal StockPriceDal = new StockPriceDal();
             try
             {
-                stockPriceInformationDal.Open(DBConn.Conn);
-                var result = stockPriceInformationDal.SelectByCode(code);
+                StockPriceDal.Open(DBConn.Conn);
+                var result = StockPriceDal.SelectByCode(code);
                 return result;
             }
             catch (Exception e)
@@ -29,8 +29,8 @@ namespace FinanceBetterTrading.Service
             }
             finally
             {
-                if (stockPriceInformationDal.Connection != null)
-                    stockPriceInformationDal.Connection.Close();
+                if (StockPriceDal.Connection != null)
+                    StockPriceDal.Connection.Close();
             }
         }
     }

@@ -73,7 +73,7 @@
     <Compile Include="MySqlDal.cs" />
     <Compile Include="MySql\InstitutionalInvestorsInformationDAL.cs" />
     <Compile Include="MySql\StockDAL.cs" />
-    <Compile Include="MySql\StockPriceInformationDAL.cs" />
+    <Compile Include="MySql\StockPriceDAL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -59,8 +59,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Extension\StringExtension.cs" />
-    <Compile Include="StockInformation.cs" />
-    <Compile Include="StockPriceInformation.cs" />
+    <Compile Include="InstitutionalInvestorsScheduleData.cs" />
+    <Compile Include="Stock.cs" />
+    <Compile Include="StockPrice.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -21,9 +21,9 @@ namespace FinanceBetterTrading.WebRequest
         /// 因為證交所是以月為鋹
         /// </summary>
         /// <returns></returns>
-        private List<StockPriceInformation> DecodehtmlData(HtmlDocument htmlDocument)
+        private List<StockPrice> DecodehtmlData(HtmlDocument htmlDocument)
         {
-            List<StockPriceInformation> result = new List<StockPriceInformation>();
+            List<StockPrice> result = new List<StockPrice>();
             string[] stockInformation = GetNameAndCode(htmlDocument);
             var pricehtml = htmlDocument.DocumentNode.ChildNodes;
             int count = 0;
@@ -37,7 +37,7 @@ namespace FinanceBetterTrading.WebRequest
                         count++;
                         if (count > 2)
                         {
-                            StockPriceInformation stockPrice = new StockPriceInformation();
+                            StockPrice stockPrice = new StockPrice();
                             stockPrice.Name = stockInformation[2].Trim();
                             stockPrice.Code = stockInformation[1];
                             stockPrice.Date = ChangeDateFormate(item.SelectNodes("./td[1]")[0].InnerText);
@@ -69,9 +69,9 @@ namespace FinanceBetterTrading.WebRequest
         /// 因為證交所是以日為鋹
         /// </summary>
         /// <returns></returns>
-        private List<InstitutionalInvestorsScheduleDataInformation> DecodehtmlInstitutionalInvestorsData(HtmlDocument htmlDocument)
+        private List<InstitutionalInvestorsScheduleData> DecodehtmlInstitutionalInvestorsData(HtmlDocument htmlDocument)
         {
-            List<InstitutionalInvestorsScheduleDataInformation> result = new List<InstitutionalInvestorsScheduleDataInformation>();
+            List<InstitutionalInvestorsScheduleData> result = new List<InstitutionalInvestorsScheduleData>();
             //string[] stockInformation = GetNameAndCode(htmlDocument);
             var pricehtml = htmlDocument.DocumentNode.ChildNodes;
             int count = 0;
@@ -85,24 +85,24 @@ namespace FinanceBetterTrading.WebRequest
                         count++;
                         if (count > 2)
                         {
-                            InstitutionalInvestorsScheduleDataInformation InstitutionalInvestorsSchedule = new InstitutionalInvestorsScheduleDataInformation();
+                            InstitutionalInvestorsScheduleData InstitutionalInvestorsSchedule = new InstitutionalInvestorsScheduleData();
                             //stockPrice.Name = stockInformation[2].Trim();
                             //stockPrice.Code = stockInformation[1];
                             //InstitutionalInvestorsSchedule.Date = ChangeDateFormate(item.SelectNodes("./td[1]")[0].InnerText);
                             InstitutionalInvestorsSchedule.StockCode = item.SelectNodes("./td[1]")[0].InnerText;
-                            InstitutionalInvestorsSchedule.ForeignCapitalBuyShares = item.SelectNodes("./td[3]")[0].InnerText.ParseThousandthString();
-                            InstitutionalInvestorsSchedule.ForeignCapitalSellShares = item.SelectNodes("./td[4]")[0].InnerText.ParseThousandthString();
-                            //InstitutionalInvestorsSchedule.ForeignCapitalBuySellShares = item.SelectNodes("./td[5]")[0].InnerText.ParseThousandthString();
-                            InstitutionalInvestorsSchedule.InvestmentTrustBuyShares = item.SelectNodes("./td[5]")[0].InnerText.ParseThousandthString();
-                            InstitutionalInvestorsSchedule.InvestmentTrustSellShares = item.SelectNodes("./td[6]")[0].InnerText.ParseThousandthString();
-                            //InstitutionalInvestorsSchedule.InvestmentTrustBuySellShares = item.SelectNodes("./td[3]")[0].InnerText.ParseThousandthString();
-                            InstitutionalInvestorsSchedule.DealerBuySharesProprietaryTrading = item.SelectNodes("./td[7]")[0].InnerText.ParseThousandthString();
-                            InstitutionalInvestorsSchedule.DealerSellSharesProprietaryTrading = item.SelectNodes("./td[8]")[0].InnerText.ParseThousandthString();
-                            //InstitutionalInvestorsSchedule.DealerBuySellSharesProprietaryTrading = item.SelectNodes("./td[3]")[0].InnerText.ParseThousandthString();
-                            InstitutionalInvestorsSchedule.DealerBuySharesHedge = item.SelectNodes("./td[9]")[0].InnerText.ParseThousandthString();
-                            InstitutionalInvestorsSchedule.DealerSellSharesHedge = item.SelectNodes("./td[10]")[0].InnerText.ParseThousandthString();
-                            //InstitutionalInvestorsSchedule.DealerBuySellSharesHedge = item.SelectNodes("./td[3]")[0].InnerText.ParseThousandthString();
-                            InstitutionalInvestorsSchedule.InstitutionalInvestorsBuySellShares = item.SelectNodes("./td[11]")[0].InnerText.ParseThousandthString();
+                            InstitutionalInvestorsSchedule.ForeignCapitalBuyShares = item.SelectNodes("./td[3]")[0].InnerText.ParseThousandtoString();
+                            InstitutionalInvestorsSchedule.ForeignCapitalSellShares = item.SelectNodes("./td[4]")[0].InnerText.ParseThousandtoString();
+                            //InstitutionalInvestorsSchedule.ForeignCapitalBuySellShares = item.SelectNodes("./td[5]")[0].InnerText.ParseThousandtoString();
+                            InstitutionalInvestorsSchedule.InvestmentTrustBuyShares = item.SelectNodes("./td[5]")[0].InnerText.ParseThousandtoString();
+                            InstitutionalInvestorsSchedule.InvestmentTrustSellShares = item.SelectNodes("./td[6]")[0].InnerText.ParseThousandtoString();
+                            //InstitutionalInvestorsSchedule.InvestmentTrustBuySellShares = item.SelectNodes("./td[3]")[0].InnerText.ParseThousandtoString();
+                            InstitutionalInvestorsSchedule.DealerBuySharesProprietaryTrading = item.SelectNodes("./td[7]")[0].InnerText.ParseThousandtoString();
+                            InstitutionalInvestorsSchedule.DealerSellSharesProprietaryTrading = item.SelectNodes("./td[8]")[0].InnerText.ParseThousandtoString();
+                            //InstitutionalInvestorsSchedule.DealerBuySellSharesProprietaryTrading = item.SelectNodes("./td[3]")[0].InnerText.ParseThousandtoString();
+                            InstitutionalInvestorsSchedule.DealerBuySharesHedge = item.SelectNodes("./td[9]")[0].InnerText.ParseThousandtoString();
+                            InstitutionalInvestorsSchedule.DealerSellSharesHedge = item.SelectNodes("./td[10]")[0].InnerText.ParseThousandtoString();
+                            //InstitutionalInvestorsSchedule.DealerBuySellSharesHedge = item.SelectNodes("./td[3]")[0].InnerText.ParseThousandtoString();
+                            InstitutionalInvestorsSchedule.InstitutionalInvestorsBuySellShares = item.SelectNodes("./td[11]")[0].InnerText.ParseThousandtoString();
                             result.Add(InstitutionalInvestorsSchedule);
                         }
                     }
@@ -137,9 +137,9 @@ namespace FinanceBetterTrading.WebRequest
         /// </summary>
         /// <param name="code"></param>
         /// <returns></returns>
-        public List<StockPriceInformation> GetStockPrice(string code)
+        public List<StockPrice> GetStockPrice(string code)
         {
-            List<StockPriceInformation> result = new List<StockPriceInformation>();
+            List<StockPrice> result = new List<StockPrice>();
             DateTime date = DateTime.Now;
             string time = string.Empty;
             string year = string.Empty;
@@ -183,9 +183,9 @@ namespace FinanceBetterTrading.WebRequest
         /// </summary>
         /// <param name="date"></param>
         /// <returns></returns>
-        public List<InstitutionalInvestorsScheduleDataInformation> GetInstitutionalInvestorsScheduleData(string date)
+        public List<InstitutionalInvestorsScheduleData> GetInstitutionalInvestorsScheduleData(string date)
         {
-            List<InstitutionalInvestorsScheduleDataInformation> result = new List<InstitutionalInvestorsScheduleDataInformation>();
+            List<InstitutionalInvestorsScheduleData> result = new List<InstitutionalInvestorsScheduleData>();
             HtmlDocument gethtmldata = new HtmlDocument();
 
             while (gethtmldata != null)

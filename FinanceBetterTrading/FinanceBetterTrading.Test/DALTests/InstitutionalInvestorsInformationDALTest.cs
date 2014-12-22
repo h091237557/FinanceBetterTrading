@@ -39,14 +39,14 @@ namespace FinanceBetterTrading.Test.DALTests
 
                     //Assert.AreEqual(expect, actual);
                     institutionalinvestorsInformationDAL.Open(DBConn.Conn);
-                    List<InstitutionalInvestorsScheduleDataInformation> institutionalInvestorsScheduleDataInformations = new List<InstitutionalInvestorsScheduleDataInformation>();
-                    institutionalInvestorsScheduleDataInformations.Add(CreateInstitutionalInvestorsObject());
-                    institutionalInvestorsScheduleDataInformations.Add(CreateInstitutionalInvestorsObject());
+                    List<InstitutionalInvestorsScheduleData> InstitutionalInvestorsScheduleDatas = new List<InstitutionalInvestorsScheduleData>();
+                    InstitutionalInvestorsScheduleDatas.Add(CreateInstitutionalInvestorsObject());
+                    InstitutionalInvestorsScheduleDatas.Add(CreateInstitutionalInvestorsObject());
 
-                    institutionalinvestorsInformationDAL.InsertBatch(institutionalInvestorsScheduleDataInformations);
+                    institutionalinvestorsInformationDAL.InsertBatch(InstitutionalInvestorsScheduleDatas);
 
-                    var actual = institutionalinvestorsInformationDAL.Select(institutionalInvestorsScheduleDataInformations[0].Date).StockCode;
-                    var expect = institutionalInvestorsScheduleDataInformations[0].StockCode;
+                    var actual = institutionalinvestorsInformationDAL.Select(InstitutionalInvestorsScheduleDatas[0].Date).StockCode;
+                    var expect = InstitutionalInvestorsScheduleDatas[0].StockCode;
 
                     Assert.AreEqual(expect, actual);         
                     //scrop.Complete();
@@ -58,9 +58,9 @@ namespace FinanceBetterTrading.Test.DALTests
                     institutionalinvestorsInformationDAL.Connection.Close();
             }
         }
-        private InstitutionalInvestorsScheduleDataInformation CreateInstitutionalInvestorsObject()
+        private InstitutionalInvestorsScheduleData CreateInstitutionalInvestorsObject()
         {
-            InstitutionalInvestorsScheduleDataInformation InstitutionalInvestorsList = new InstitutionalInvestorsScheduleDataInformation();
+            InstitutionalInvestorsScheduleData InstitutionalInvestorsList = new InstitutionalInvestorsScheduleData();
             InstitutionalInvestorsList.Date = "20141219";
             InstitutionalInvestorsList.StockCode = "1234";
             InstitutionalInvestorsList.ForeignCapitalBuyShares = 123456789;

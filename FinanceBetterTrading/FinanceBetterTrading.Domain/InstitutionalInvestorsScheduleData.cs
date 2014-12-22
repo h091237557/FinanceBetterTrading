@@ -6,22 +6,7 @@ using System.Threading.Tasks;
 
 namespace FinanceBetterTrading.Domain
 {
-    public class StockPriceInformation
-    {
-        public string Id { get; set; }
-        public string Name { get; set; }
-        public string Code { get; set; }
-        public string Date { get; set; }
-        public float OpenPrice { get; set; }
-        public float ClosePrice { get; set; }
-        public float HeightPrice { get; set; }
-        public float LowerPrice { get; set; }
-        public int Volumn { get; set; }
-        public int TradeAmount { get; set; }
-        public int TradeShare { get; set; }
-        public float PriceSpread { get; set; }
-    }
-    public class InstitutionalInvestorsScheduleDataInformation
+    public class InstitutionalInvestorsScheduleData
     {
         public string Date { get; set; }
         public string StockCode { get; set; }

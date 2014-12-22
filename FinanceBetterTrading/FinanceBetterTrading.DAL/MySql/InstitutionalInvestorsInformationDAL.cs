@@ -14,11 +14,11 @@ namespace FinanceBetterTrading.DAL
         /// 新增多筆資料進 StockPriceInformation 資料表
         /// </summary>
         /// <param name="InstitutionalInvestorsList"></param>
-        public void InsertBatch(List<InstitutionalInvestorsScheduleDataInformation> InstitutionalInvestorsList)
+        public void InsertBatch(List<InstitutionalInvestorsScheduleData> InstitutionalInvestorsList)
         {
             StringBuilder sw = new StringBuilder();
             int count = InstitutionalInvestorsList.Count;
-            sw.Append("INSERT INTO institutionalinvestorsscheduledatainformation ");
+            sw.Append("INSERT INTO InstitutionalInvestorsScheduleData ");
             sw.Append(
                 "(Date,StockCode,ForeignCapitalBuyShares,ForeignCapitalSellShares,InvestmentTrustBuyShares,InvestmentTrustSellShares,DealerBuySharesProprietaryTrading,DealerSellSharesProprietaryTrading,DealerBuySharesHedge,DealerSellSharesHedge,InstitutionalInvestorsBuySellShares) VALUES");
             for (int i = 0; i < count; i++)
@@ -60,11 +60,11 @@ namespace FinanceBetterTrading.DAL
             //for (int i = 0; i < count; i++)
             //    InstitutionalInvestorsList[i].Id = i == 0 ? command.LastInsertedId.ToString() : (command.LastInsertedId + i).ToString();
         }
-        public InstitutionalInvestorsScheduleDataInformation Select(string date)
+        public InstitutionalInvestorsScheduleData Select(string date)
         {
-            InstitutionalInvestorsScheduleDataInformation InstitutionalInvestors = new InstitutionalInvestorsScheduleDataInformation();
+            InstitutionalInvestorsScheduleData InstitutionalInvestors = new InstitutionalInvestorsScheduleData();
             MySqlCommand command = connection.CreateCommand();
-            command.CommandText = "SELECT * FROM institutionalinvestorsscheduledatainformation WHERE Date=?Date";
+            command.CommandText = "SELECT * FROM InstitutionalInvestorsScheduleData WHERE Date=?Date";
             command.Parameters.AddWithValue("?Date", date);
             var reader = command.ExecuteReader();
 
@@ -75,7 +75,7 @@ namespace FinanceBetterTrading.DAL
             reader.Close();
             return InstitutionalInvestors;
         }
-        public void ReadAll(InstitutionalInvestorsScheduleDataInformation InstitutionalInvestors, MySqlDataReader reader)
+        public void ReadAll(InstitutionalInvestorsScheduleData InstitutionalInvestors, MySqlDataReader reader)
         {
             InstitutionalInvestors.Date = reader["Date"].ToString();
             InstitutionalInvestors.StockCode = reader["StockCode"].ToString();

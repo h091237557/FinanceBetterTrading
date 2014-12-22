@@ -35,13 +35,12 @@ namespace FinanceBetterTrading.DataConsole
         private static void InsertStockPrice()
         {
             RequestTWSE requestTwse = new RequestTWSE();
-            StockPriceInformationDal stockPriceInformationDal = new StockPriceInformationDal();
             StockDAL stockDal = new StockDAL();
-
+            StockPriceDal stockPriceDal = new StockPriceDal();
             try
             {
-                stockPriceInformationDal.Open(DBConn.Conn);
-                stockDal.Connection = stockPriceInformationDal.Connection;
+                stockDal.Open(DBConn.Conn);
+                stockPriceDal.Connection = stockDal.Connection;
                 var allStock = stockDal.SelectAll();
 
                 foreach (var stock in allStock)
@@ -49,7 +48,7 @@ namespace FinanceBetterTrading.DataConsole
                     Console.WriteLine("{0} 開始進行", stock.Code);
                     var stockPrice = requestTwse.GetStockPrice(stock.Code);
                     Console.WriteLine("{0} 成功從TWSE抓取", stock.Code);
-                    stockPriceInformationDal.InsertBatch(stockPrice);
+                    stockPriceDal.InsertBatch(stockPrice);
                     Console.WriteLine("{0} 成功匯入", stock.Code);
                     stockDal.UpdateIsGetHistoryPrice(stock.Code);
                 }
@@ -62,8 +61,8 @@ namespace FinanceBetterTrading.DataConsole
             }
             finally
             {
-                if (stockPriceInformationDal.Connection != null)
-                    stockPriceInformationDal.Connection.Close();
+                if (stockPriceDal.Connection != null)
+                    stockPriceDal.Connection.Close();
             }
         }
 

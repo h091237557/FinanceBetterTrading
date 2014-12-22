@@ -8,16 +8,16 @@ using MySql.Data.MySqlClient;
 
 namespace FinanceBetterTrading.DAL
 {
-    public class StockPriceInformationDal:MySqlDal
+    public class StockPriceDal:MySqlDal
     {
         /// <summary>
-        /// 新增一筆資料進 StockPriceInformation 資料表
+        /// 新增一筆資料進 StockPrice 資料表
         /// </summary>
         /// <param name="stock"></param>
-        public void Insert(StockPriceInformation stock)
+        public void Insert(StockPrice stock)
         {
             MySqlCommand command = connection.CreateCommand();
-            command.CommandText = "INSERT INTO StockPriceInformation ";
+            command.CommandText = "INSERT INTO StockPrice ";
             command.CommandText +=
                 "(Name,Code,Date,OpenPrice,ClosePrice,HeightPrice,LowerPrice,Volumn,TradeAmount,TradeShare,PriceSpread) ";
             command.CommandText += "VALUES (?Name, ?Code, ?Date, ?OpenPrice, ?ClosePrice, ?HeightPrice, ?LowerPrice, ?Volumn, ?TradeAmount, ?TradeShare,?PriceSpread)";
@@ -37,14 +37,14 @@ namespace FinanceBetterTrading.DAL
         }
 
         /// <summary>
-        /// 新增多筆資料進 StockPriceInformation 資料表
+        /// 新增多筆資料進 StockPrice 資料表
         /// </summary>
         /// <param name="stocksList"></param>
-        public void InsertBatch(List<StockPriceInformation> stocksList)
+        public void InsertBatch(List<StockPrice> stocksList)
         {
             StringBuilder sw = new StringBuilder();
             int count = stocksList.Count;
-            sw.Append("INSERT INTO StockPriceInformation ");
+            sw.Append("INSERT INTO StockPrice ");
             sw.Append(
                 "(Name,Code,Date,OpenPrice,ClosePrice,HeightPrice,LowerPrice,Volumn,TradeAmount,TradeShare,PriceSpread) VALUES");
             for (int i = 0; i < count; i++)
@@ -88,13 +88,13 @@ namespace FinanceBetterTrading.DAL
         }
 
         /// <summary>
-        /// 刪除一筆資料進 StockPriceInformation 資料表
+        /// 刪除一筆資料進 StockPrice 資料表
         /// </summary>
         /// <param name="stock"></param>
-        public void Delete(StockPriceInformation stock)
+        public void Delete(StockPrice stock)
         {
             MySqlCommand command = connection.CreateCommand();
-            command.CommandText = "DELETE FROM  StockPriceInformation ";
+            command.CommandText = "DELETE FROM  StockPrice ";
             command.CommandText += " WHERE Code = ?Code AND OpenPrice = ?OpenPrice";
             command.Parameters.AddWithValue("?Code", stock.Code);
             command.Parameters.AddWithValue("?OpenPrice", stock.OpenPrice);
@@ -107,18 +107,18 @@ namespace FinanceBetterTrading.DAL
         /// </summary>
         /// <param name="code"></param>
         /// <returns></returns>
-        public List<StockPriceInformation> SelectByCode(string code)
+        public List<StockPrice> SelectByCode(string code)
         {
-            List<StockPriceInformation> result = new List<StockPriceInformation>();
+            List<StockPrice> result = new List<StockPrice>();
             MySqlCommand command = connection.CreateCommand();
-            command.CommandText = "SELECT * FROM  StockPriceInformation ";
+            command.CommandText = "SELECT * FROM  StockPrice ";
             command.CommandText += "WHERE Code = ?Code Order By Date";
             command.Parameters.AddWithValue("?Code", code);
             var reader = command.ExecuteReader();
 
             while (reader.Read())
             {
-                StockPriceInformation stock = new StockPriceInformation();
+                StockPrice stock = new StockPrice();
                 ReadAll(stock,reader);
                 result.Add(stock);
             }
@@ -131,11 +131,11 @@ namespace FinanceBetterTrading.DAL
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public StockPriceInformation Select(string id)
+        public StockPrice Select(string id)
         {
-            StockPriceInformation stock = new StockPriceInformation();
+            StockPrice stock = new StockPrice();
             MySqlCommand command = connection.CreateCommand();
-            command.CommandText = "SELECT * FROM StockPriceInformation WHERE Id=?id";
+            command.CommandText = "SELECT * FROM StockPrice WHERE Id=?id";
             command.Parameters.AddWithValue("?id", id);
             var reader = command.ExecuteReader();
 
@@ -147,7 +147,7 @@ namespace FinanceBetterTrading.DAL
             return stock;
         }
 
-        public void ReadAll(StockPriceInformation stock, MySqlDataReader reader)
+        public void ReadAll(StockPrice stock, MySqlDataReader reader)
         {
             stock.Name = reader["Name"].ToString();
             stock.Code = reader["Code"].ToString();

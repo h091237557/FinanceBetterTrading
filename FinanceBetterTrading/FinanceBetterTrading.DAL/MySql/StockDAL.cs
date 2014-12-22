@@ -14,16 +14,16 @@ namespace FinanceBetterTrading.DAL.MySql
         /// 抓取全部的資料
         /// </summary>
         /// <returns></returns>
-        public List<StockInformation> SelectAll()
+        public List<Stock> SelectAll()
         {
-            List<StockInformation> result = new List<StockInformation>();
+            List<Stock> result = new List<Stock>();
             MySqlCommand command = connection.CreateCommand();
             command.CommandText = "SELECT * FROM stock WHERE IsGetHistoryPrice=false";
             var reader = command.ExecuteReader();
 
             while (reader.Read())
             {
-                StockInformation stock = new StockInformation();
+                Stock stock = new Stock();
                 ReadAll(reader,stock);
                 result.Add(stock);
             }
@@ -48,7 +48,7 @@ namespace FinanceBetterTrading.DAL.MySql
         /// </summary>
         /// <param name="reader"></param>
         /// <param name="stock"></param>
-        public void ReadAll(MySqlDataReader reader , StockInformation stock)
+        public void ReadAll(MySqlDataReader reader , Stock stock)
         {
             stock.Code = reader["Code"].ToString();
         }

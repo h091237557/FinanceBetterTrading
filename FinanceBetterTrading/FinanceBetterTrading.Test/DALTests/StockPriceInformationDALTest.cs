@@ -12,7 +12,7 @@ using System.Transactions;
 namespace FinanceBetterTrading.Test.DALTests
 {
     [TestClass]
-    public class StockPriceInformationDALTest
+    public class StockPriceDALTest
     {
 
         [TestInitialize]
@@ -27,16 +27,16 @@ namespace FinanceBetterTrading.Test.DALTests
         [TestMethod]
         public void TestInsert()
         {
-            StockPriceInformationDal stockPriceInformationDal = new StockPriceInformationDal();
+            StockPriceDal StockPriceDal = new StockPriceDal();
             try
             {
                 using (var scrop = new TransactionScope())
                 {
-                    stockPriceInformationDal.Open(DBConn.Conn);
+                    StockPriceDal.Open(DBConn.Conn);
                     var stock = CreateStockObject();
-                    stockPriceInformationDal.Insert(stock);
+                    StockPriceDal.Insert(stock);
 
-                    var actual = stockPriceInformationDal.Select(stock.Id).Name;
+                    var actual = StockPriceDal.Select(stock.Id).Name;
                     var expect = stock.Name;
                    
                     Assert.AreEqual(expect, actual);
@@ -45,27 +45,27 @@ namespace FinanceBetterTrading.Test.DALTests
             }
             finally
             {
-                if (stockPriceInformationDal.Connection != null)
-                    stockPriceInformationDal.Connection.Close();
+                if (StockPriceDal.Connection != null)
+                    StockPriceDal.Connection.Close();
             }
         }
 
         [TestMethod]
         public void TestInsertBatch()
         {
-            StockPriceInformationDal stockPriceInformationDal = new StockPriceInformationDal();
+            StockPriceDal StockPriceDal = new StockPriceDal();
             try
             {
                 using (var scrop = new TransactionScope())
                 {
-                    stockPriceInformationDal.Open(DBConn.Conn);
-                    List<StockPriceInformation> stocks = new List<StockPriceInformation>();
+                    StockPriceDal.Open(DBConn.Conn);
+                    List<StockPrice> stocks = new List<StockPrice>();
                     stocks.Add(CreateStockObject());
                     stocks.Add(CreateStockObject());
 
-                    stockPriceInformationDal.InsertBatch(stocks);
+                    StockPriceDal.InsertBatch(stocks);
 
-                    var actual = stockPriceInformationDal.Select(stocks[0].Id).Name;
+                    var actual = StockPriceDal.Select(stocks[0].Id).Name;
                     var expect = stocks[0].Name;
 
                     Assert.AreEqual(expect, actual);                  
@@ -73,43 +73,43 @@ namespace FinanceBetterTrading.Test.DALTests
             }
             finally
             {
-                if (stockPriceInformationDal.Connection != null)
-                    stockPriceInformationDal.Connection.Close();
+                if (StockPriceDal.Connection != null)
+                    StockPriceDal.Connection.Close();
             }
         }
 
         [TestMethod]
         public void TestDelete()
         {
-            StockPriceInformationDal stockPriceInformationDal = new StockPriceInformationDal();
+            StockPriceDal StockPriceDal = new StockPriceDal();
             try
             {
                 using (new TransactionScope())
                 {
-                    stockPriceInformationDal.Open(DBConn.Conn);
+                    StockPriceDal.Open(DBConn.Conn);
                     var stock = CreateStockObject();
-                    stockPriceInformationDal.Insert(stock);
+                    StockPriceDal.Insert(stock);
 
-                    var actual = stockPriceInformationDal.Select(stock.Id).Name;
+                    var actual = StockPriceDal.Select(stock.Id).Name;
                     var expect = stock.Name;
                     Assert.AreEqual(expect, actual);
 
-                    stockPriceInformationDal.Delete(stock);
+                    StockPriceDal.Delete(stock);
 
-                    var actualcancel = stockPriceInformationDal.Select(stock.Id).Name;
+                    var actualcancel = StockPriceDal.Select(stock.Id).Name;
                     Assert.IsNull(actualcancel);                 
                 }
             }
             finally
             {
-                if (stockPriceInformationDal.Connection != null)
-                    stockPriceInformationDal.Connection.Close();
+                if (StockPriceDal.Connection != null)
+                    StockPriceDal.Connection.Close();
             }
         }
 
-        private StockPriceInformation CreateStockObject()
+        private StockPrice CreateStockObject()
         {
-            StockPriceInformation stock = new StockPriceInformation();
+            StockPrice stock = new StockPrice();
             stock.Name = "Test";
             stock.Code = "1234";
             stock.Date = "103/10/01";

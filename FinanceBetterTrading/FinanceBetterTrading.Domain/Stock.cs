@@ -7,7 +7,7 @@ using System.Xml.Serialization;
 
 namespace FinanceBetterTrading.Domain
 {
-    public class StockInformation
+    public class Stock
     {
         public string Code { get; set; }
         public string Name { get; set; }
