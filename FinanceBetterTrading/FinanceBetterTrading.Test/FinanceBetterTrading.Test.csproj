@@ -93,6 +93,9 @@
     <Reference Include="System.Transactions" />
     <Reference Include="System.Web" />
     <Reference Include="System.XML" />
+    <Reference Include="TechTalk.SpecFlow">
+      <HintPath>..\packages\SpecFlow.1.9.0\lib\net35\TechTalk.SpecFlow.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <Choose>
     <When Condition="('$(VisualStudioVersion)' == '10.0' or '$(VisualStudioVersion)' == '') and '$(TargetFrameworkVersion)' == 'v3.5'">
@@ -110,7 +113,14 @@
     <Compile Include="DALTests\StockPriceInformationDALTest.cs" />
     <Compile Include="DALTests\InstitutionalInvestorsInformationDALTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ServiceTests\StockPriceServiceTests.cs" />
+    <Compile Include="ServiceTests\StockPriceServiceTests.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>StockPriceServiceTests.feature</DependentUpon>
+    </Compile>
     <Compile Include="WebRequestTests\RequstServerTest.cs" />
+    <Compile Include="WebRequestTests\RequestTWSETests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\FinanceBetterTrading.DAL\FinanceBetterTrading.DAL.csproj">
@@ -137,6 +147,10 @@
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+    <None Include="ServiceTests\StockPriceServiceTests.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>StockPriceServiceTests.feature.cs</LastGenOutput>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Content Include="UseDll\HtmlAgilityPack.dll" />
