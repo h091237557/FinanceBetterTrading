@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+  <metadata>
+    <id>Owin.Security.QQ</id>
+    <version>1.0.0</version>
+    <title>OwinQQ</title>
+    <authors>chenzhong</authors>
+    <owners>chenzhong</owners>
+    <projectUrl>https://github.com/czcz1024/OwinQQ</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>qq oauth login for owin</description>
+    <summary>qq oauth login for owin</summary>
+    <dependencies>
+      <dependency id="Microsoft.Owin" version="2.0.2" />
+      <dependency id="Microsoft.Owin.Security" version="2.0.2" />
+      <dependency id="Owin" version="1.0" />
+    </dependencies>
+    <frameworkAssemblies>
+      <frameworkAssembly assemblyName="System.Net.Http" targetFramework=".NETFramework4.0" />
+      <frameworkAssembly assemblyName="System.Net.Http.WebRequest" targetFramework=".NETFramework4.0" />
+    </frameworkAssemblies>
+  </metadata>
+</package>

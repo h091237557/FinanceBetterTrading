@@ -230,7 +230,49 @@ namespace FinanceBetterTrading.WebRequest
             HtmlNodeCollection nodeHeader = htmlDocument.DocumentNode.SelectNodes("/tr[1]/td[1]/div[1]");
             string[] result = Regex.Split(nodeHeader[0].InnerText, "&nbsp;", RegexOptions.IgnoreCase);
             return result;
-        }      
+        }
+
+        /// <summary>
+        /// 抓取當月大盤資料
+        /// </summary>
+        /// <param name="htmlDocument"></param>
+        /// <returns></returns>
+        public List<StockPrice> GetMonthTAIEXdata()
+        {
+            List<StockPrice> result = new List<StockPrice>();
+            HtmlDocument getHtmlDocument = new HtmlDocument();
+            string url = string.Format("http://www.twse.com.tw/ch/trading/indices/MI_5MINS_HIST/MI_5MINS_HIST.php");
+            getHtmlDocument = GetHtmlData(url, "/html[1]/body[1]/table[1]/tr[3]/td[1]/table[3]");
+            var trNum = getHtmlDocument.DocumentNode.ChildNodes;
+            int count = 0;
+            foreach (var item in trNum)
+            {
+                try
+                {
+                    if (item.Name == "tr")
+                    {
+                        count++;
+                        if (count > 2)
+                        {
+                            StockPrice stockPrice = new StockPrice();
+                            stockPrice.Name = "TAIEX";
+                            stockPrice.Code = " ";
+                            stockPrice.Date = ChangeDateFormate(item.SelectNodes("./td[1]")[0].InnerText);
+                            stockPrice.OpenPrice = float.Parse(item.SelectNodes("./td[2]")[0].InnerText.ParseSymbolsTostrZero());
+                            stockPrice.HeightPrice = float.Parse(item.SelectNodes("./td[3]")[0].InnerText.ParseSymbolsTostrZero());
+                            stockPrice.LowerPrice = float.Parse(item.SelectNodes("./td[4]")[0].InnerText.ParseSymbolsTostrZero());
+                            stockPrice.ClosePrice = float.Parse(item.SelectNodes("./td[5]")[0].InnerText.ParseSymbolsTostrZero());
+                            result.Add(stockPrice);
+                        }
+                    }
+                }
+                catch (Exception e)
+                {
+                    throw e;
+                }
+            }
+            return result;
+        }
     }
 }
 

@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+  <metadata>
+    <id>Typescript.Compiler</id>
+    <version>2.0</version>
+    <title>Typescript Compiler</title>
+    <authors>..</authors>
+    <owners>..</owners>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>typescript compiler</description>
+    <summary>all the files provided by microsoft for compiling typescript files</summary>
+    <language>en-US</language>
+    <tags>typescript compiler</tags>
+  </metadata>
+</package>

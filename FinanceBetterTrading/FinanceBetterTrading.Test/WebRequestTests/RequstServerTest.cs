@@ -56,5 +56,14 @@ namespace FinanceBetterTrading.UITest.WebRequestTests
             string url = "http://www.twse.com.tw/ch/trading/fund/BFI82U/BFI82U.php";
             var result = requestServer.GetPostHtmlData(url, postData.ToString(), "/html[1]");
         }
+
+        [TestMethod]
+        public void TestGetTAIEX()
+        {
+            RequestTWSE requestTwse = new RequestTWSE();
+            var result = requestTwse.GetMonthTAIEXdata();
+            Assert.IsNotNull(result);
+        }
+
     }
 }
