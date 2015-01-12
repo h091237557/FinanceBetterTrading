@@ -237,13 +237,13 @@ namespace FinanceBetterTrading.WebRequest
         /// </summary>
         /// <param name="htmlDocument"></param>
         /// <returns></returns>
-        public List<StockPrice> GetMonthTAIEXdata()
+        public List<StockPrice> GetMonthTAIEXdata(HtmlDocument htmlDocument)
         {
             List<StockPrice> result = new List<StockPrice>();
-            HtmlDocument getHtmlDocument = new HtmlDocument();
-            string url = string.Format("http://www.twse.com.tw/ch/trading/indices/MI_5MINS_HIST/MI_5MINS_HIST.php");
-            getHtmlDocument = GetHtmlData(url, "/html[1]/body[1]/table[1]/tr[3]/td[1]/table[3]");
-            var trNum = getHtmlDocument.DocumentNode.ChildNodes;
+            //HtmlDocument getHtmlDocument = new HtmlDocument();
+            //string url = string.Format("http://www.twse.com.tw/ch/trading/indices/MI_5MINS_HIST/MI_5MINS_HIST.php");
+            //htmlDocument = GetHtmlData(url, "/html[1]/body[1]/table[1]/tr[3]/td[1]/table[3]");
+            var trNum = htmlDocument.DocumentNode.ChildNodes;
             int count = 0;
             foreach (var item in trNum)
             {
@@ -271,6 +271,34 @@ namespace FinanceBetterTrading.WebRequest
                     throw e;
                 }
             }
+            return result;
+        }
+
+        public List<StockPrice> GetTAIEXHistoryByDate(string month,string year)
+        {
+            
+            List<StockPrice> result = new List<StockPrice>();
+            
+            HtmlDocument gethtmldata = new HtmlDocument();
+            string uri =string.Format("http://www.twse.com.tw/ch/trading/indices/MI_5MINS_HIST/MI_5MINS_HIST.php");
+                try
+                {
+                    StringBuilder postData = new StringBuilder();
+                    postData.Append(HttpUtility.UrlEncode(String.Format("myear={0}&", year)));
+                    postData.Append(HttpUtility.UrlEncode(String.Format("mmon={0}", month)));
+                    //postData.Append(String.Format("data_form={0}&", "%ACd%B8%DF"));
+                    gethtmldata = GetPostHtmlData(uri, postData.ToString(), "/html[1]/body[1]/table[1]/tr[3]/td[1]/table[3]"); 
+                    if (gethtmldata != null)
+                    {
+                        var data = GetMonthTAIEXdata(gethtmldata);
+                        result.AddRange(data);
+                        result.Reverse();
+                    }
+                }
+                catch (Exception e)
+                {
+                    throw e;
+                }
             return result;
         }
     }

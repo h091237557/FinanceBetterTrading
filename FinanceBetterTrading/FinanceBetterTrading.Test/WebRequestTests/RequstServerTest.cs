@@ -58,10 +58,21 @@ namespace FinanceBetterTrading.UITest.WebRequestTests
         }
 
         [TestMethod]
-        public void TestGetTAIEX()
+        public void TestGetMonthTAIEXdata()
         {
             RequestTWSE requestTwse = new RequestTWSE();
-            var result = requestTwse.GetMonthTAIEXdata();
+            HtmlDocument getHtmlDocument = new HtmlDocument();
+            string url = string.Format("http://www.twse.com.tw/ch/trading/indices/MI_5MINS_HIST/MI_5MINS_HIST.php");
+            getHtmlDocument = requestTwse.GetHtmlData(url, "/html[1]/body[1]/table[1]/tr[3]/td[1]/table[3]");
+            var result = requestTwse.GetMonthTAIEXdata(getHtmlDocument);
+            Assert.IsNotNull(result);
+        }
+
+        [TestMethod]
+        public void TestGetTAIEXHistoryByDate()
+        {
+            RequestTWSE requestTwse = new RequestTWSE();
+            var result = requestTwse.GetTAIEXHistoryByDate("05", "88");
             Assert.IsNotNull(result);
         }
 
